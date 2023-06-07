@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/screens/home.dart';
 import 'package:flutter_shopware_6_api/screens/cart_screen.dart';
 import 'package:flutter_shopware_6_api/screens/more_screen.dart';
+import 'package:flutter_shopware_6_api/widgets/side_drawer.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -40,10 +41,6 @@ class _TabScreenState extends State<TabScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -54,6 +51,7 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ],
       ),
+      drawer: MyDrawer(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
           //Changes the Index
