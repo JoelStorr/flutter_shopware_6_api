@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:flutter_shopware_6_api/screens/home.dart';
+import 'package:flutter_shopware_6_api/screens/tab_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -23,26 +24,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
-      theme: ThemeData().copyWith(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 63, 17, 177)),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Shopware Demo'),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.person),
-              iconSize: 30,
-              padding: const EdgeInsets.only(right: 20),
-            ),
-          ],
+        title: 'My App',
+        theme: ThemeData().copyWith(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
-        body: HomeScreen(),
-      ),
-    );
+        home: TabScreen());
   }
 }
