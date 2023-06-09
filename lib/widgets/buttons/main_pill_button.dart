@@ -119,7 +119,7 @@ class MainPillButton extends StatelessWidget {
                           }),
                         ),
                         child: Text(
-                          textRight,
+                          textLeft,
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
@@ -128,7 +128,7 @@ class MainPillButton extends StatelessWidget {
                       width: 150,
                       child: TextButton(
                         child: Text(
-                          textLeft,
+                          textRight,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 244, 130, 70)),
                         ),

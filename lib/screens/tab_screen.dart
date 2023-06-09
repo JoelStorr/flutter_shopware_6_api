@@ -28,16 +28,28 @@ class _TabScreenState extends State<TabScreen> {
     //Sets the current Widget based on the Selected index value
     Widget activePage = const HomeScreen();
     var activePageTitle = 'Home';
+    String _textLeft = 'Latest';
+    String _textRight = 'Last Orders';
+    String _pillPosition = 'left';
 
     if (_selectedPageIndex == 0) {
       activePage = const HomeScreen();
       activePageTitle = 'Home';
+      _textLeft = 'Latest';
+      _textRight = 'Last Orders';
+      _pillPosition = 'left';
     } else if (_selectedPageIndex == 1) {
       activePage = const CartScreen();
       activePageTitle = 'Cart';
+      _textLeft = 'Home';
+      _textRight = 'Cart';
+      _pillPosition = 'right';
     } else if (_selectedPageIndex == 2) {
       activePage = const MoreScreen();
       activePageTitle = 'More';
+      _textLeft = 'Home';
+      _textRight = 'More';
+      _pillPosition = 'right';
     }
 
     return Scaffold(
@@ -63,9 +75,9 @@ class _TabScreenState extends State<TabScreen> {
               height: 20,
             ),
             MainPillButton(
-              activeElement: 'right',
-              textLeft: 'Demo 1',
-              textRight: 'Demo 2',
+              activeElement: _pillPosition,
+              textLeft: _textLeft,
+              textRight: _textRight,
             ),
             activePage,
           ],
@@ -86,7 +98,7 @@ class _TabScreenState extends State<TabScreen> {
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.person,
+                  Icons.home,
                 ),
                 label: 'You'),
             BottomNavigationBarItem(
