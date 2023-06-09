@@ -61,6 +61,9 @@ class _TabScreenState extends State<TabScreen> {
           //The currentIndex manages the highlight of the Selected Tab item
           currentIndex: _selectedPageIndex,
           //Sets the Navigation items in the Tab Bar
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: const Color.fromARGB(255, 244, 130, 70),
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(
@@ -74,7 +77,7 @@ class _TabScreenState extends State<TabScreen> {
                 label: 'Cart'),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.reorder,
+                  Icons.apps_rounded,
                 ),
                 label: 'More'),
           ]),
