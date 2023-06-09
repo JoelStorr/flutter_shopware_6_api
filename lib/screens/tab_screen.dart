@@ -4,6 +4,8 @@ import 'package:flutter_shopware_6_api/screens/cart_screen.dart';
 import 'package:flutter_shopware_6_api/screens/more_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/side_drawer.dart';
 
+import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
+
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
 
@@ -52,7 +54,23 @@ class _TabScreenState extends State<TabScreen> {
         ],
       ),
       drawer: MyDrawer(),
-      body: activePage,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            MainPillButton(
+              activeElement: 'right',
+              textLeft: 'Demo 1',
+              textRight: 'Demo 2',
+            ),
+            activePage,
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
           //Changes the Index
           onTap: (index) {
@@ -64,6 +82,7 @@ class _TabScreenState extends State<TabScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: const Color.fromARGB(255, 244, 130, 70),
+          iconSize: 32,
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(

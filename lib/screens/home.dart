@@ -22,13 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.data == null) {
             return const Text('Waiting for Data');
           }
-          return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (ctx, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index]['name']),
-                );
-              });
+          return Expanded(
+            child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (ctx, index) {
+                  return ListTile(
+                    title: Text(snapshot.data![index]['name']),
+                  );
+                }),
+          );
         });
   }
 }
