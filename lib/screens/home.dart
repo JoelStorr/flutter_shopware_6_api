@@ -28,6 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 110,
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromARGB(137, 70, 70, 70),
+                    offset: Offset(1.0, 2.0),
+                    blurRadius: 2.0)
+              ],
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               image: DecorationImage(
                   image: AssetImage(
