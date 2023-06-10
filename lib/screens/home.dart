@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,13 +49,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Text('Waiting for Data');
                 }
                 return Expanded(
-                  child: ListView.builder(
+                  child: GridView.builder(
+                      padding: EdgeInsets.all(20),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 3 / 2,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 15,
+                      ),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (ctx, index) {
-                        return ListTile(
+                        return CategoryCart(
+                          title:
+                              snapshot.data![index]['breadcrumb'][1].toString(),
+                          imageLink: snapshot.data![index]['media']['url'],
+                          categoryId: snapshot.data![index]['id'],
+                        );
+
+                        /* ListTile(
                           title: Text(snapshot.data![index]['breadcrumb'][1]
                               .toString()),
-                        );
+                        ); */
                       }),
                 );
               }),
