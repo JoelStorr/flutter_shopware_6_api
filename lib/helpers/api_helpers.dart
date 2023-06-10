@@ -1,23 +1,24 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-final url = Uri.https('localhost', 'store-api/category');
+final mainNavigatioUrl = Uri.https(
+    'localhost', 'store-api/navigation/main-navigation/main-navigation');
 
 class ShopwareApiHelper {
-  Future<List> getCategoreis() async {
+  Future<List<dynamic>> getMainNavigation() async {
     try {
       final response = await http.post(
-        url,
+        mainNavigatioUrl,
         headers: {
           'Content-Type': 'application/json',
-          'sw-access-key': 'SWSCA0LLWTNISMHPVUZXRFVNNW',
+          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
         },
       );
 
-      final Map<String, dynamic> categories = json.decode(response.body);
+      final List<dynamic> categories = json.decode(response.body);
 
-      print(categories['elements'][0]['name']);
-      return categories['elements'];
+      print(categories);
+      return categories;
     } catch (e) {
       print(e);
     }

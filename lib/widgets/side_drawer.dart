@@ -4,7 +4,7 @@ import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 class MyDrawer extends StatelessWidget {
   MyDrawer({super.key});
 
-  final myCategories = ShopwareApiHelper().getCategoreis();
+  final myCategories = ShopwareApiHelper().getMainNavigation();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class MyDrawer extends StatelessWidget {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (ctx, index) {
                         return ListTile(
-                          title: Text(snapshot.data![index]['name']),
+                          title: Text(snapshot.data![index]['name'].toString()),
                           onTap: () {},
                         );
                       });

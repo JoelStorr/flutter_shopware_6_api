@@ -9,12 +9,12 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-final url = Uri.https('localhost', 'store-api/category');
+final url = Uri.https('localhost', 'store-api/navigation/main-navigation');
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final myCategories = ShopwareApiHelper().getCategoreis();
+    final myCategories = ShopwareApiHelper().getMainNavigation();
 
     return FutureBuilder(
         future: myCategories,
@@ -27,7 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (ctx, index) {
                   return ListTile(
-                    title: Text(snapshot.data![index]['name']),
+                    title:
+                        Text(snapshot.data![index]['breadcrumb'][1].toString()),
                   );
                 }),
           );
