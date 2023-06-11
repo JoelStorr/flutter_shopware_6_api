@@ -43,7 +43,8 @@ class ShopwareApiHelper {
     return categories;
   }
 
-  Future<List>? getProductsForCategory(String categoryName) async {
+  Future<List<Map<dynamic, dynamic>>>? getProductsForCategory(
+      String categoryName) async {
     final categoryResponse = await getCategories();
     final List categoryList = categoryResponse['elements'];
 
@@ -71,15 +72,23 @@ class ShopwareApiHelper {
     print(item['id']);
 
     final response =
-        await http.post(generateURL('product-listing/${item['id']}'), headers: {
-      'Content-Type': 'application/json',
-      'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
-    });
+        await http.post(generateURL('product-listing/${item['id']}'),
+            headers: {
+              'Content-Type': 'application/json',
+              'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+            },
+            body: jsonEncode({
+              'associations': {
+                'properties': ['Colours'],
+              }
+            }));
 
     final Map<String, dynamic> productList = json.decode(response.body);
+    final List<Map<String, dynamic>> elements;
 
+    elements = List<Map<String, dynamic>>.from(productList['elements']);
     print(productList);
 
-    return productList['elements'];
+    return elements;
   }
 }
