@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 final mainNavigatioUrl = Uri.https(
@@ -42,7 +43,7 @@ class ShopwareApiHelper {
     return categories;
   }
 
-  Future? getProductsForCategory(String categoryName) async {
+  Future<List>? getProductsForCategory(String categoryName) async {
     final categoryResponse = await getCategories();
     final List categoryList = categoryResponse['elements'];
 
@@ -63,8 +64,22 @@ class ShopwareApiHelper {
       }
     }
 
-    print(item);
+    if (item == null) {
+      throw Exception();
+      return [];
+    }
+    print(item['id']);
 
-    return null;
+    final response =
+        await http.post(generateURL('product-listing/${item['id']}'), headers: {
+      'Content-Type': 'application/json',
+      'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+    });
+
+    final Map<String, dynamic> productList = json.decode(response.body);
+
+    print(productList);
+
+    return productList['elements'];
   }
 }
