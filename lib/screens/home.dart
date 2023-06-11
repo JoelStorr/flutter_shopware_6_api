@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
+import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
+import 'package:isar/isar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories = ShopwareApiHelper().getCategories();
     final latestProduct = ShopwareApiHelper().getProductsForCategory('Latest');
 
+    final ScrollController _scrollController = ScrollController();
+
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -29,7 +34,55 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
             ),
             //TODO: Add Latest Product Cards
-
+            FutureBuilder(
+              future: latestProduct,
+              builder: (ctx, snapshot) {
+                if (snapshot.data == null) {
+                  return const SizedBox(
+                    height: 0.5,
+                  );
+                }
+                return Container(
+                  height: 250,
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    controller: _scrollController,
+                    child: ListView.separated(
+                      controller: _scrollController,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data!.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        if (snapshot.data![index].containsKey('properties') &&
+                            snapshot.data![index]['properties'].length > 0) {
+                          return NewProductCard(
+                            id: snapshot.data![index]['id'],
+                            name: snapshot.data![index]['translated']['name'],
+                            imageURL: snapshot.data![index]['cover']['media']
+                                ['url'],
+                            buttonColor: snapshot.data![index]['properties'][0]
+                                ['colorHexCode'],
+                          );
+                        } else {
+                          return NewProductCard(
+                            id: snapshot.data![index]['id'],
+                            name: snapshot.data![index]['translated']['name'],
+                            imageURL: snapshot.data![index]['cover']['media']
+                                ['url'],
+                          );
+                        }
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(
+                        width: 10,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 50,
+            ),
             /* FutureBuilder(builder: (){}), */
 
             Container(
@@ -54,7 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: mainNavigation,
                 builder: (ctx, snapshot) {
                   if (snapshot.data == null) {
-                    return const Text('Waiting for Data');
+                    return const Center(
+                      heightFactor: 50.0,
+                      child: CircularProgressIndicator(),
+                    );
                   }
                   return GridView.builder(
                       shrinkWrap: true,
