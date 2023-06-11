@@ -15,7 +15,9 @@ final url = Uri.https('localhost', 'store-api/navigation/main-navigation');
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final myCategories = ShopwareApiHelper().getMainNavigation()
+    final mainNavigation = ShopwareApiHelper().getMainNavigation();
+    final categories = ShopwareApiHelper().getCategories();
+    final latestProduct = ShopwareApiHelper().getProductsForCategory('Latest');
 
     return Expanded(
       child: SingleChildScrollView(
@@ -27,6 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
             ),
             //TODO: Add Latest Product Cards
+
+            /* FutureBuilder(builder: (){}), */
+
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 110,
@@ -46,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             FutureBuilder(
-                future: myCategories,
+                future: mainNavigation,
                 builder: (ctx, snapshot) {
                   if (snapshot.data == null) {
                     return const Text('Waiting for Data');
