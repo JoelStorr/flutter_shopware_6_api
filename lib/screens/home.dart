@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.max,
           children: [
             const SizedBox(
-              height: 50,
+              height: 80,
             ),
             //TODO: Add Latest Product Cards
             FutureBuilder(
