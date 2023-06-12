@@ -39,10 +39,10 @@ class NewProductCard extends StatelessWidget {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
             Container(
               width: 180,
-              height: 180,
+              height: 160,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   color: Color.fromARGB(255, 224, 223, 225),
@@ -50,13 +50,21 @@ class NewProductCard extends StatelessWidget {
                       vertical: BorderSide.none, horizontal: BorderSide.none)),
               padding: const EdgeInsets.only(left: 10),
               child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 80,
+                      height: 62,
                     ),
-                    Text(name),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
                     const Text('rating placeholder'),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
