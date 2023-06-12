@@ -42,8 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.5,
                   );
                 }
-                return Container(
-                  height: 250,
+                return SizedBox(
+                  height: 230,
                   child: Scrollbar(
                     thumbVisibility: true,
                     controller: _scrollController,
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             const SizedBox(
-              height: 50,
+              height: 25,
             ),
             /* FutureBuilder(builder: (){}), */
 
