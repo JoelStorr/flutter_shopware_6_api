@@ -54,6 +54,7 @@ class _TabScreenState extends State<TabScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0.0,
         title: Text(activePageTitle),
         actions: [
           IconButton(
@@ -66,7 +67,7 @@ class _TabScreenState extends State<TabScreen> {
         ],
       ),
       drawer: MyDrawer(),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
