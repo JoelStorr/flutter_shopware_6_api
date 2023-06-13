@@ -30,7 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
           settings: settings,
           builder: (BuildContext context) {
             return Scaffold(
-              //TODO: Add App bar
+              appBar: AppBar(
+                scrolledUnderElevation: 0.0,
+                title: Image.asset(
+                  'assets/images/logo/Logo.png',
+                  width: 200,
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.search,
+                    ),
+                    padding: const EdgeInsets.only(right: 30.0),
+                  ),
+                ],
+              ),
               body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
