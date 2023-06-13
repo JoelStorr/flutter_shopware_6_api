@@ -175,6 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           return CategoryScreen(
                                             categoryID: snapshot.data![index]
                                                 ['id'],
+                                            categoryName: snapshot.data![index]
+                                                    ['breadcrumb'][1]
+                                                .toString(),
                                           );
                                         },
                                       ),

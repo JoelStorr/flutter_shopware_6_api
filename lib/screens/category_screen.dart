@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.categoryID});
+  const CategoryScreen({
+    super.key,
+    required this.categoryID,
+    required this.categoryName,
+  });
 
   final String categoryID;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +44,10 @@ class CategoryScreen extends StatelessWidget {
               MainPillButton(
                 activeElement: 'right',
                 textLeft: 'Home',
-                textRight: 'Categories',
+                textRight: categoryName,
                 navigateTo: CategoryScreen(
                   categoryID: categoryID,
+                  categoryName: categoryName,
                 ),
               ),
             ],
