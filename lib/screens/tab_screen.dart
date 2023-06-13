@@ -31,42 +31,19 @@ class _TabScreenState extends State<TabScreen> {
     String _textRight = 'Last Orders';
     String _pillPosition = 'left';
     String _currentCategoryID = '';
-    bool _isCategoryScreen = false;
+
     //Sets the current Widget based on the Selected index value
     Widget activePage;
 
-    changeToCategoryView(
-        {required String categoryName, required String categoryID}) {
-      setState(() {
-        _isCategoryScreen = true;
-        activePageTitle = categoryName;
-        _textLeft = 'Home';
-        _textRight = categoryName;
-        _pillPosition = 'right';
-        _currentCategoryID = categoryID;
-        _selectedPageIndex = 0;
-      });
-
-      print('Pressed $categoryName');
-    }
-
     //Sets the current Widget based on the Selected index value
-    activePage = HomeScreen(
-      changeToCategoryView: changeToCategoryView,
-    );
+    activePage = HomeScreen();
 
     if (_selectedPageIndex == 0) {
-      if (_isCategoryScreen) {
-        activePage = const CategoryScreen();
-      } else {
-        activePage = HomeScreen(
-          changeToCategoryView: changeToCategoryView,
-        );
-        activePageTitle = 'Home';
-        _textLeft = 'Latest';
-        _textRight = 'Last Orders';
-        _pillPosition = 'left';
-      }
+      activePage = HomeScreen();
+      activePageTitle = 'Home';
+      _textLeft = 'Latest';
+      _textRight = 'Last Orders';
+      _pillPosition = 'left';
     } else if (_selectedPageIndex == 1) {
       activePage = const CartScreen();
       activePageTitle = 'Cart';
@@ -82,7 +59,7 @@ class _TabScreenState extends State<TabScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         scrolledUnderElevation: 0.0,
         title: Image.asset(
           'assets/images/logo/Logo.png',
@@ -98,8 +75,19 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ],
       ),
-      drawer: MyDrawer(),
-      body: SizedBox(
+      drawer: MyDrawer(), */
+      body: SafeArea(
+        child: IndexedStack(
+          index: _selectedPageIndex,
+          children: const [
+            HomeScreen(),
+            CartScreen(),
+            MoreScreen(),
+          ],
+        ),
+      ),
+
+      /* SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
@@ -119,7 +107,7 @@ class _TabScreenState extends State<TabScreen> {
             ),
           ],
         ),
-      ),
+      ), */
       bottomNavigationBar: BottomNavigationBar(
         //Changes the Index
         onTap: (index) {
