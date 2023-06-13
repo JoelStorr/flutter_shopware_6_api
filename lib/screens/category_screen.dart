@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key, required this.categoryID});
@@ -24,7 +25,29 @@ class CategoryScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Text('Demo'),
+      body: Stack(
+        children: [
+          //TODO: Implement Future Builder for items of one Category
+          FutureBuilder(builder: (ctx, snapshot) {
+            return const Text('demo');
+          }),
+          Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              MainPillButton(
+                activeElement: 'right',
+                textLeft: 'Home',
+                textRight: 'Categories',
+                navigateTo: CategoryScreen(
+                  categoryID: categoryID,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
