@@ -26,19 +26,47 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //Sets the current Widget based on the Selected index value
-    Widget activePage = const HomeScreen();
     var activePageTitle = 'Home';
     String _textLeft = 'Latest';
     String _textRight = 'Last Orders';
     String _pillPosition = 'left';
+    String _currentCategoryID = '';
+    bool _isCategoryScreen = false;
+    //Sets the current Widget based on the Selected index value
+    Widget activePage;
+
+    changeToCategoryView(
+        {required String categoryName, required String categoryID}) {
+      setState(() {
+        _isCategoryScreen = true;
+        activePageTitle = categoryName;
+        _textLeft = 'Home';
+        _textRight = categoryName;
+        _pillPosition = 'right';
+        _currentCategoryID = categoryID;
+        _selectedPageIndex = 0;
+      });
+
+      print('Pressed $categoryName');
+    }
+
+    //Sets the current Widget based on the Selected index value
+    activePage = HomeScreen(
+      changeToCategoryView: changeToCategoryView,
+    );
 
     if (_selectedPageIndex == 0) {
-      activePage = const HomeScreen();
-      activePageTitle = 'Home';
-      _textLeft = 'Latest';
-      _textRight = 'Last Orders';
-      _pillPosition = 'left';
+      if (_isCategoryScreen) {
+        activePage = const CategoryScreen();
+      } else {
+        activePage = HomeScreen(
+          changeToCategoryView: changeToCategoryView,
+        );
+        activePageTitle = 'Home';
+        _textLeft = 'Latest';
+        _textRight = 'Last Orders';
+        _pillPosition = 'left';
+      }
     } else if (_selectedPageIndex == 1) {
       activePage = const CartScreen();
       activePageTitle = 'Cart';
