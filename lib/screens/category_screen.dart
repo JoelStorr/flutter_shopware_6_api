@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+  const CategoryScreen({super.key, required this.categoryID});
+
+  final String categoryID;
 
   @override
   Widget build(BuildContext context) {

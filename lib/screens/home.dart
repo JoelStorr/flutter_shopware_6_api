@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/category_screen.dart';
+import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
 
@@ -49,98 +50,102 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              body: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    FutureBuilder(
-                      future: latestProduct,
-                      builder: (ctx, snapshot) {
-                        if (snapshot.data == null) {
-                          return const SizedBox(
-                            height: 0.5,
-                          );
-                        }
-                        return SizedBox(
-                          height: 230,
-                          child: Scrollbar(
-                            thumbVisibility: true,
-                            controller: _scrollController,
-                            child: ListView.separated(
-                              controller: _scrollController,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data!.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                if (snapshot.data![index]
-                                        .containsKey('properties') &&
-                                    snapshot.data![index]['properties'].length >
-                                        0) {
-                                  return NewProductCard(
-                                    id: snapshot.data![index]['id'],
-                                    name: snapshot.data![index]['translated']
-                                        ['name'],
-                                    imageURL: snapshot.data![index]['cover']
-                                        ['media']['url'],
-                                    buttonColor: snapshot.data![index]
-                                        ['properties'][0]['colorHexCode'],
-                                  );
-                                } else {
-                                  return NewProductCard(
-                                    id: snapshot.data![index]['id'],
-                                    name: snapshot.data![index]['translated']
-                                        ['name'],
-                                    imageURL: snapshot.data![index]['cover']
-                                        ['media']['url'],
-                                  );
-                                }
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                width: 10,
+              body: Stack(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          height: 80,
+                        ),
+                        FutureBuilder(
+                          future: latestProduct,
+                          builder: (ctx, snapshot) {
+                            if (snapshot.data == null) {
+                              return const SizedBox(
+                                height: 0.5,
+                              );
+                            }
+                            return SizedBox(
+                              height: 230,
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                controller: _scrollController,
+                                child: ListView.separated(
+                                  controller: _scrollController,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data!.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    if (snapshot.data![index]
+                                            .containsKey('properties') &&
+                                        snapshot.data![index]['properties']
+                                                .length >
+                                            0) {
+                                      return NewProductCard(
+                                        id: snapshot.data![index]['id'],
+                                        name: snapshot.data![index]
+                                            ['translated']['name'],
+                                        imageURL: snapshot.data![index]['cover']
+                                            ['media']['url'],
+                                        buttonColor: snapshot.data![index]
+                                            ['properties'][0]['colorHexCode'],
+                                      );
+                                    } else {
+                                      return NewProductCard(
+                                        id: snapshot.data![index]['id'],
+                                        name: snapshot.data![index]
+                                            ['translated']['name'],
+                                        imageURL: snapshot.data![index]['cover']
+                                            ['media']['url'],
+                                      );
+                                    }
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                    width: 10,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    /* FutureBuilder(builder: (){}), */
-
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 110,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromARGB(137, 70, 70, 70),
-                              offset: Offset(1.0, 2.0),
-                              blurRadius: 2.0)
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/taste_your_progress_banner_orange.png'),
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    FutureBuilder(
-                        future: mainNavigation,
-                        builder: (ctx, snapshot) {
-                          if (snapshot.data == null) {
-                            return const Center(
-                              heightFactor: 50.0,
-                              child: CircularProgressIndicator(),
                             );
-                          }
-                          return GridView.builder(
+                          },
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        /* FutureBuilder(builder: (){}), */
+
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 110,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromARGB(137, 70, 70, 70),
+                                  offset: Offset(1.0, 2.0),
+                                  blurRadius: 2.0)
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/taste_your_progress_banner_orange.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        FutureBuilder(
+                          future: mainNavigation,
+                          builder: (ctx, snapshot) {
+                            if (snapshot.data == null) {
+                              return const Center(
+                                heightFactor: 50.0,
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               padding: const EdgeInsets.all(20),
@@ -158,7 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return CategoryScreen();
+                                          return CategoryScreen(
+                                            categoryID: snapshot.data![index]
+                                                ['id'],
+                                          );
                                         },
                                       ),
                                     );
@@ -174,13 +182,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
 
                                 /* ListTile(
-                          title: Text(snapshot.data![index]['breadcrumb'][1]
-                              .toString()),
-                        ); */
-                              });
-                        }),
-                  ],
-                ),
+                            title: Text(snapshot.data![index]['breadcrumb'][1]
+                                .toString()),
+                          ); */
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MainPillButton(
+                        activeElement: 'left',
+                        textLeft: 'Home',
+                        textRight: 'Last Orders',
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           },
