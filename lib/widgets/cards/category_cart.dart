@@ -18,7 +18,15 @@ class CategoryCart extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
           color: Color.fromARGB(255, 224, 223, 225),
           border: Border.symmetric(
-              vertical: BorderSide.none, horizontal: BorderSide.none)),
+            vertical: BorderSide.none,
+            horizontal: BorderSide.none,
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Color.fromARGB(137, 70, 70, 70),
+                offset: Offset(1.0, 2.0),
+                blurRadius: 2.0),
+          ]),
       padding: const EdgeInsets.only(left: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +40,14 @@ class CategoryCart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                  padding: const EdgeInsets.only(top: 30), child: Text(title)),
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 77, 75, 76)),
+                  )),
               TextButton(
                 onPressed: () {},
                 style: ButtonStyle(
@@ -59,7 +74,15 @@ class CategoryCart extends StatelessWidget {
                 ),
                 child: const Text(
                   'Get a Tatse',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        BoxShadow(
+                            color: Color.fromARGB(137, 70, 70, 70),
+                            offset: Offset(1.0, 2.0),
+                            blurRadius: 2.0)
+                      ]),
                 ),
               ),
             ],
