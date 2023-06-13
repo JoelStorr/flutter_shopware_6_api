@@ -74,35 +74,40 @@ class _TabScreenState extends State<TabScreen> {
           ],
         ),
       ), */
-      bottomNavigationBar: BottomNavigationBar(
-        //Changes the Index
-        onTap: (index) {
-          _selectedPage(index);
-        },
-        //The currentIndex manages the highlight of the Selected Tab item
-        currentIndex: _selectedPageIndex,
-        //Sets the Navigation items in the Tab Bar
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: const Color.fromARGB(255, 244, 130, 70),
-        iconSize: 32,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'You'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart,
-              ),
-              label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.apps_rounded,
-              ),
-              label: 'More'),
-        ],
+      bottomNavigationBar: GestureDetector(
+        //TODO: Add return via Doule Tab on Bottom Nav bar
+        onDoubleTap: () {},
+        child: BottomNavigationBar(
+          //Changes the Index
+          onTap: (index) {
+            _selectedPage(index);
+          },
+
+          //The currentIndex manages the highlight of the Selected Tab item
+          currentIndex: _selectedPageIndex,
+          //Sets the Navigation items in the Tab Bar
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: const Color.fromARGB(255, 244, 130, 70),
+          iconSize: 32,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'You'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart,
+                ),
+                label: 'Cart'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.apps_rounded,
+                ),
+                label: 'More'),
+          ],
+        ),
       ),
     );
   }
