@@ -6,10 +6,12 @@ class MainPillButton extends StatelessWidget {
     this.activeElement = 'left',
     required this.textLeft,
     required this.textRight,
+    required this.navigateTo,
   });
   String activeElement;
   String textLeft;
   String textRight;
+  Widget navigateTo;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,9 @@ class MainPillButton extends StatelessWidget {
                           style: const TextStyle(
                               color: Color.fromARGB(255, 244, 130, 70)),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
                     ),
                     SizedBox(
@@ -132,7 +136,15 @@ class MainPillButton extends StatelessWidget {
                           style: const TextStyle(
                               color: Color.fromARGB(255, 244, 130, 70)),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return navigateTo;
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

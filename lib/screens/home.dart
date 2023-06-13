@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/category_screen.dart';
+import 'package:flutter_shopware_6_api/screens/last_orders_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
@@ -19,13 +20,21 @@ final url = Uri.https('localhost', 'store-api/navigation/main-navigation');
 class _HomeScreenState extends State<HomeScreen> {
   int _currentRoute = 0;
 
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mainNavigation = ShopwareApiHelper().getMainNavigation();
     final categories = ShopwareApiHelper().getCategories();
     final latestProduct = ShopwareApiHelper().getProductsForCategory('Latest');
 
-    final ScrollController _scrollController = ScrollController();
+    final lastOrdersScreen = LastOrdersScreen();
 
     return Navigator(
       key: widget.navigatorKey,
@@ -201,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         activeElement: 'left',
                         textLeft: 'Home',
                         textRight: 'Last Orders',
+                        navigateTo: const LastOrdersScreen(),
                       ),
                     ],
                   ),
