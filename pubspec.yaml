@@ -69,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/taste_your_progress_banner_orange.png
+    - assets/images/logo/Logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
