@@ -5,9 +5,9 @@ import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-  });
+  const HomeScreen({super.key, required this.navigatorKey});
+
+  final GlobalKey navigatorKey;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 final url = Uri.https('localhost', 'store-api/navigation/main-navigation');
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentRoute = 0;
+
   @override
   Widget build(BuildContext context) {
     final mainNavigation = ShopwareApiHelper().getMainNavigation();
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final ScrollController _scrollController = ScrollController();
 
     return Navigator(
+      key: widget.navigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
           settings: settings,

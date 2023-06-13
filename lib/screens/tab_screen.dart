@@ -18,6 +18,12 @@ class _TabScreenState extends State<TabScreen> {
   //Handles Index Chnage
   int _selectedPageIndex = 0;
 
+  Map<int, GlobalKey> navigatorKeys = {
+    0: GlobalKey(),
+    1: GlobalKey(),
+    2: GlobalKey(),
+  };
+
   void _selectedPage(int index) {
     setState(() {
       _selectedPageIndex = index;
@@ -26,67 +32,27 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var activePageTitle = 'Home';
-    String _textLeft = 'Latest';
-    String _textRight = 'Last Orders';
-    String _pillPosition = 'left';
-    String _currentCategoryID = '';
-
-    //Sets the current Widget based on the Selected index value
-    Widget activePage;
-
-    //Sets the current Widget based on the Selected index value
-    activePage = HomeScreen();
-
-    if (_selectedPageIndex == 0) {
-      activePage = HomeScreen();
-      activePageTitle = 'Home';
-      _textLeft = 'Latest';
-      _textRight = 'Last Orders';
-      _pillPosition = 'left';
-    } else if (_selectedPageIndex == 1) {
-      activePage = const CartScreen();
-      activePageTitle = 'Cart';
-      _textLeft = 'Home';
-      _textRight = 'Cart';
-      _pillPosition = 'right';
-    } else if (_selectedPageIndex == 2) {
-      activePage = const MoreScreen();
-      activePageTitle = 'More';
-      _textLeft = 'Home';
-      _textRight = 'More';
-      _pillPosition = 'right';
-    }
-
     return Scaffold(
-      /* appBar: AppBar(
-        scrolledUnderElevation: 0.0,
-        title: Image.asset(
-          'assets/images/logo/Logo.png',
-          width: 200,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-            ),
-            padding: const EdgeInsets.only(right: 30.0),
-          ),
-        ],
-      ),
-      drawer: MyDrawer(), */
       body: SafeArea(
-        child: IndexedStack(
-          index: _selectedPageIndex,
-          children: const [
-            HomeScreen(),
-            CartScreen(),
-            MoreScreen(),
-          ],
+        child: WillPopScope(
+          onWillPop: () async {
+            return !await Navigator.maybePop(
+                navigatorKeys[_selectedPageIndex]!.currentState!.context);
+          },
+          child: IndexedStack(
+            index: _selectedPageIndex,
+            children: [
+              HomeScreen(
+                navigatorKey: navigatorKeys[0]!,
+              ),
+              CartScreen(),
+              MoreScreen(),
+            ],
+          ),
         ),
       ),
 
+      //TODO: Implement pill button on a Per screen page
       /* SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
