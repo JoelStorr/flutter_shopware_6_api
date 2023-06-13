@@ -23,7 +23,6 @@ class MainPillButton extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  backgroundBlendMode: BlendMode.clear,
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black54,
