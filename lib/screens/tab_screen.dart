@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/screens/category_screen.dart';
 import 'package:flutter_shopware_6_api/screens/home.dart';
 import 'package:flutter_shopware_6_api/screens/cart_screen.dart';
 import 'package:flutter_shopware_6_api/screens/more_screen.dart';
@@ -55,7 +56,10 @@ class _TabScreenState extends State<TabScreen> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        title: Text(activePageTitle),
+        title: Image.asset(
+          'assets/images/logo/Logo.png',
+          width: 200,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
