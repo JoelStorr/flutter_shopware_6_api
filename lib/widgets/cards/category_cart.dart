@@ -15,18 +15,20 @@ class CategoryCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          color: Color.fromARGB(255, 224, 223, 225),
-          border: Border.symmetric(
-            vertical: BorderSide.none,
-            horizontal: BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Color.fromARGB(255, 224, 223, 225),
+        border: Border.symmetric(
+          vertical: BorderSide.none,
+          horizontal: BorderSide.none,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(137, 70, 70, 70),
+            offset: Offset(1.0, 2.0),
+            blurRadius: 2.0,
           ),
-          boxShadow: [
-            BoxShadow(
-                color: Color.fromARGB(137, 70, 70, 70),
-                offset: Offset(1.0, 2.0),
-                blurRadius: 2.0),
-          ]),
+        ],
+      ),
       padding: const EdgeInsets.only(left: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
