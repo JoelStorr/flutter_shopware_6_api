@@ -26,9 +26,13 @@ class LastOrdersScreen extends StatelessWidget {
       body: Stack(
         children: [
           //TODO: Implement Future Builder for Bought items
-          FutureBuilder(builder: (ctx, snapshot) {
+
+          /* FutureBuilder(builder: (ctx, snapshot) {
             return const Text('demo');
-          }),
+          }), */
+          const Center(
+            child: Text('No Orders yet'),
+          ),
           Column(
             children: [
               const SizedBox(
