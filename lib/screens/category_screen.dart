@@ -51,7 +51,16 @@ class CategoryScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ProductCard(
+                        id: snapshot.data![index]['id'],
                         name: snapshot.data![index]['translated']['name'],
+                        imageUrl: snapshot.data![index]['cover']['media']
+                            ['url'],
+                        ratingAverage: snapshot.data![index]['ratingAverage'],
+                        weight: snapshot.data![index]['weight'],
+                        price: snapshot.data![index]['calculatedPrice']
+                            ['totalPrice'],
+                        available: snapshot.data![index]['available'],
+                        avilableStock: snapshot.data![index]['availableStock'],
                       );
                     },
                     separatorBuilder: (context, index) => const SizedBox(
