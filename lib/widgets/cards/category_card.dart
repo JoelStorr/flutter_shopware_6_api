@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CategoryCart extends StatelessWidget {
-  const CategoryCart(
+class CategoryCard extends StatelessWidget {
+  const CategoryCard(
       {super.key,
       required this.title,
       required this.imageLink,

@@ -3,7 +3,7 @@ import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/category_screen.dart';
 import 'package:flutter_shopware_6_api/screens/last_orders_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
-import 'package:flutter_shopware_6_api/widgets/cards/category_cart.dart';
+import 'package:flutter_shopware_6_api/widgets/cards/category_card.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     );
                                   },
-                                  child: CategoryCart(
+                                  child: CategoryCard(
                                     title: snapshot.data![index]['breadcrumb']
                                             [1]
                                         .toString(),
