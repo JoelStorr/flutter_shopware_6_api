@@ -46,7 +46,7 @@ class CategoryScreen extends StatelessWidget {
                   );
                 } else {
                   return ListView.separated(
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
