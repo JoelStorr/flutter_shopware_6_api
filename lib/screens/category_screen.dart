@@ -64,7 +64,7 @@ class CategoryScreen extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) => const SizedBox(
-                      width: 10,
+                      height: 15,
                     ),
                   );
                 }
