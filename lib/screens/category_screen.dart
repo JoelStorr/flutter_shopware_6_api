@@ -37,38 +37,52 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          FutureBuilder(
-              future: currentCategoryProducts,
-              builder: (ctx, snapshot) {
-                if (snapshot.data == null) {
-                  return const Center(
-                    child: Text('No Products Found'),
-                  );
-                } else {
-                  return ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data!.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                        id: snapshot.data![index]['id'],
-                        name: snapshot.data![index]['translated']['name'],
-                        imageUrl: snapshot.data![index]['cover']['media']
-                            ['url'],
-                        ratingAverage: snapshot.data![index]['ratingAverage'],
-                        weight: snapshot.data![index]['weight'],
-                        price: snapshot.data![index]['calculatedPrice']
-                            ['totalPrice'],
-                        available: snapshot.data![index]['available'],
-                        avilableStock: snapshot.data![index]['availableStock'],
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 15,
-                    ),
-                  );
-                }
-              }),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                FutureBuilder(
+                    future: currentCategoryProducts,
+                    builder: (ctx, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Center(
+                          child: Text('No Products Found'),
+                        );
+                      } else {
+                        return ListView.separated(
+                          scrollDirection: Axis.vertical,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: snapshot.data!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ProductCard(
+                              id: snapshot.data![index]['id'],
+                              name: snapshot.data![index]['translated']['name'],
+                              imageUrl: snapshot.data![index]['cover']['media']
+                                  ['url'],
+                              ratingAverage: snapshot.data![index]
+                                  ['ratingAverage'],
+                              weight: snapshot.data![index]['weight'],
+                              price: snapshot.data![index]['calculatedPrice']
+                                  ['totalPrice'],
+                              available: snapshot.data![index]['available'],
+                              avilableStock: snapshot.data![index]
+                                  ['availableStock'],
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 15,
+                          ),
+                        );
+                      }
+                    }),
+              ],
+            ),
+          ),
           Column(
             children: [
               const SizedBox(
