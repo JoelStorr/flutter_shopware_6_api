@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
+import 'package:flutter_shopware_6_api/widgets/cards/product_card.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({
@@ -13,6 +15,9 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentCategoryProducts =
+        ShopwareApiHelper().getProductsForCategoryID(categoryID);
+
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
@@ -32,10 +37,29 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          //TODO: Implement Future Builder for items of one Category
-          FutureBuilder(builder: (ctx, snapshot) {
-            return const Text('demo');
-          }),
+          FutureBuilder(
+              future: currentCategoryProducts,
+              builder: (ctx, snapshot) {
+                if (snapshot.data == null) {
+                  return const Center(
+                    child: Text('No Products Found'),
+                  );
+                } else {
+                  return ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ProductCard(
+                        name: snapshot.data![index]['translated']['name'],
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      width: 10,
+                    ),
+                  );
+                }
+              }),
           Column(
             children: [
               const SizedBox(
