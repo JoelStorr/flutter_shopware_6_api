@@ -67,7 +67,10 @@ class NewProductCard extends StatelessWidget {
                     Text(
                       name,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 15,
+                        color: Color.fromARGB(200, 40, 38, 38),
+                      ),
                     ),
                     const Text('rating placeholder'),
                     const SizedBox(
