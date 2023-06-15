@@ -28,8 +28,6 @@ class ShopwareApiHelper {
     } catch (e) {
       throw Exception();
     }
-
-    return [];
   }
 
   Future<Map<String, dynamic>> getCategories() async {
@@ -67,7 +65,6 @@ class ShopwareApiHelper {
 
     if (item == null) {
       throw Exception();
-      return [];
     }
     print(item['id']);
 
