@@ -110,4 +110,27 @@ class ShopwareApiHelper {
 
     return elements;
   }
+
+  Future<List<Map<dynamic, dynamic>>>? getSearchProducts(
+      String searchTerm) async {
+    final response = await http.post(generateURL('search'),
+        headers: {
+          'Content-Type': 'application/json',
+          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        },
+        body: jsonEncode({
+          "search": searchTerm,
+          'associations': {
+            'properties': ['Colours'],
+          }
+        }));
+
+    final Map<String, dynamic> productList = json.decode(response.body);
+    final List<Map<String, dynamic>> elements;
+
+    elements = List<Map<String, dynamic>>.from(productList['elements']);
+    print(productList);
+
+    return elements;
+  }
 }
