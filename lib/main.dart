@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/screens/auth_screen.dart';
 import 'dart:io';
 
-import 'package:flutter_shopware_6_api/screens/home.dart';
 import 'package:flutter_shopware_6_api/screens/tab_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -18,8 +18,15 @@ void main() {
   runApp(const App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  String? isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +37,6 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
-        home: TabScreen());
+        home: isLoggedIn == null ? AuthScreen() : TabScreen());
   }
 }
