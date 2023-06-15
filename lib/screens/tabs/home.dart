@@ -19,8 +19,6 @@ class HomeScreen extends StatefulWidget {
 final url = Uri.https('localhost', 'store-api/navigation/main-navigation');
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentRoute = 0;
-
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -32,10 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final mainNavigation = ShopwareApiHelper().getMainNavigation();
-    final categories = ShopwareApiHelper().getCategories();
     final latestProduct = ShopwareApiHelper().getProductsForCategory('Latest');
-
-    final lastOrdersScreen = LastOrdersScreen();
 
     return Navigator(
       key: widget.navigatorKey,
@@ -201,11 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     categoryId: snapshot.data![index]['id'],
                                   ),
                                 );
-
-                                /* ListTile(
-                            title: Text(snapshot.data![index]['breadcrumb'][1]
-                                .toString()),
-                          ); */
                               },
                             );
                           },
