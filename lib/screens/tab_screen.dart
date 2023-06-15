@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopware_6_api/screens/category_screen.dart';
-import 'package:flutter_shopware_6_api/screens/home.dart';
-import 'package:flutter_shopware_6_api/screens/cart_screen.dart';
-import 'package:flutter_shopware_6_api/screens/more_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/category_screen.dart';
+import 'package:flutter_shopware_6_api/screens/tabs/home.dart';
+import 'package:flutter_shopware_6_api/screens/tabs/cart_screen.dart';
+import 'package:flutter_shopware_6_api/screens/tabs/more_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/side_drawer.dart';
 
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
@@ -45,8 +45,10 @@ class _TabScreenState extends State<TabScreen> {
               HomeScreen(
                 navigatorKey: navigatorKeys[0]!,
               ),
-              CartScreen(),
-              MoreScreen(),
+              const CartScreen(),
+              MoreScreen(
+                navigatorKey: navigatorKeys[2]!,
+              ),
             ],
           ),
         ),

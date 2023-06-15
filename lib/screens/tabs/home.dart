@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
-import 'package:flutter_shopware_6_api/screens/category_screen.dart';
-import 'package:flutter_shopware_6_api/screens/last_orders_screen.dart';
-import 'package:flutter_shopware_6_api/screens/search_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/category_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/last_orders_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/category_card.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/new_product_card.dart';
