@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? FutureBuilder(
                         future: currentSearchProducts,
                         builder: (ctx, snapshot) {
-                          if (snapshot.data == null) {
+                          if (snapshot.data == null || snapshot.data!.isEmpty) {
                             return const Center(
                               child: Text('No Products Found'),
                             );
