@@ -12,8 +12,6 @@ class _LoginFormState extends State<LoginForm> {
   var _enteredPassword;
 
   final _formKey = GlobalKey<FormState>();
-  final FocusNode _emailFocusNode = new FocusNode();
-  final FocusNode _passwordFocusNode = new FocusNode();
 
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
@@ -24,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       child: Form(
         key: _formKey,
         child: Column(
@@ -103,7 +101,17 @@ class _LoginFormState extends State<LoginForm> {
             ),
             OutlinedButton(
               onPressed: () => _saveItem(),
-              child: const Text('Login'),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                  color: Color.fromARGB(255, 244, 130, 70),
+                  width: 2,
+                ),
+                foregroundColor: const Color.fromARGB(255, 244, 130, 70),
+              ),
+              child: const Text(
+                'Login',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
