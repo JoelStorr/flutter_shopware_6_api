@@ -24,7 +24,7 @@ class _RegisterFormState extends State<RegisterForm> {
     'countryId': '',
   };
 
-  int _registerStage = 0;
+  int _registerStage = 1;
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -51,12 +51,14 @@ class _RegisterFormState extends State<RegisterForm> {
                   child: Text('Something went wrong, please restart the App'),
                 );
               } else if (snapshot.data!['salutations'] == null ||
-                  snapshot.data!['countries']) {
+                  snapshot.data!['countries'] == null) {
                 return const Center(
                   child: Text(
                       'We could Get all information from our Servers. Please restart the App.'),
                 );
               }
+
+              _salutationId ??= snapshot.data!['salutations'][0]['id'];
 
               return IndexedStack(
                 index: _registerStage,
@@ -214,39 +216,26 @@ class _RegisterFormState extends State<RegisterForm> {
                     key: _formKey2,
                     child: Column(
                       children: [
-                        TextFormField(
-                          maxLength: 100,
-                          decoration: InputDecoration(
-                            label: const Text('Gender'),
-                            labelStyle: const TextStyle(color: Colors.grey),
-                            floatingLabelStyle: const TextStyle(
-                              color: Color.fromARGB(255, 244, 130, 70),
-                            ),
-                            counterText: "",
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 244, 130, 70),
-                                  width: 2.0),
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          textCapitalization: TextCapitalization.none,
-                          autocorrect: false,
-                          validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.trim().length <= 1 ||
-                                value.trim().length > 100) {
-                              return 'Please enter a valid Email adress ';
+                        DropdownButtonFormField(
+                          value: _salutationId,
+                          items: snapshot.data!['salutations']
+                              .map<DropdownMenuItem<Object>>(
+                                (ele) => DropdownMenuItem(
+                                  value: ele['id'],
+                                  child: Text(
+                                    ele['displayName'],
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) {
+                              return;
                             }
-                            return null;
+                            setState(() {
+                              _salutationId = value;
+                            });
                           },
-                          onSaved: (newValue) => _enteredEmail = newValue!,
                         ),
                         const SizedBox(
                           height: 35,
