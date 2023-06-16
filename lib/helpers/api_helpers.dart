@@ -170,6 +170,19 @@ class ShopwareApiHelper {
     return elements;
   }
 
+  Future<String> getContext() async {
+    final response = await http.get(
+      generateURL('context'),
+      headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+      },
+    );
+
+    final Map<String, dynamic> context = json.decode(response.body);
+    return context['token'];
+  }
+
   Future<Map>? getRegistrationInfo() async {
     final salutationResponse = await getSalutationIds();
     final countryResponse = await getCountries();
@@ -178,5 +191,34 @@ class ShopwareApiHelper {
       'salutations': salutationResponse,
       'countries': countryResponse,
     };
+  }
+
+  Future registerCustomer({
+    required String salutationId,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required Map billingAddress,
+  }) async {
+    final contextToken = await getContext();
+
+    final response = await http.post(generateURL('account/register'),
+        headers: {
+          'Content-Type': 'application/json',
+          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+          'sw-context-token': contextToken,
+        },
+        body: jsonEncode({
+          "salutationId": salutationId,
+          "firstName": firstName,
+          "lastName": lastName,
+          "email": email,
+          "password": password,
+          "storefrontUrl": "http://localhost/app",
+          "billingAddress": billingAddress
+        }));
+
+    print(response);
   }
 }
