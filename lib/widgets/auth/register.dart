@@ -21,10 +21,10 @@ class _RegisterFormState extends State<RegisterForm> {
     'street': '',
     'zip-code': '',
     'city': '',
-    'countryId': '',
+    'countryId': null,
   };
 
-  int _registerStage = 1;
+  int _registerStage = 2;
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -35,6 +35,15 @@ class _RegisterFormState extends State<RegisterForm> {
       _formKey1.currentState!.save();
       setState(() {
         _registerStage = 1;
+      });
+    }
+  }
+
+  void _saveItemStep2() {
+    if (_formKey2.currentState!.validate()) {
+      _formKey2.currentState!.save();
+      setState(() {
+        _registerStage = 2;
       });
     }
   }
@@ -59,6 +68,8 @@ class _RegisterFormState extends State<RegisterForm> {
               }
 
               _salutationId ??= snapshot.data!['salutations'][0]['id'];
+              _billingAdress['countryId'] ??=
+                  snapshot.data!['countries'][0]['id'];
 
               return IndexedStack(
                 index: _registerStage,
@@ -259,21 +270,17 @@ class _RegisterFormState extends State<RegisterForm> {
                               borderRadius: BorderRadius.circular(25.0),
                             ),
                           ),
-                          textCapitalization: TextCapitalization.none,
+                          textCapitalization: TextCapitalization.words,
                           autocorrect: false,
-                          obscureText: true,
+                          obscureText: false,
                           enableSuggestions: false,
-                          onChanged: (value) => _enteredPassword = value,
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.trim().length < 8 ||
-                                value.trim().length > 100) {
-                              return 'Please enter a valid Password (At least 8 characters) ';
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid Name';
                             }
                             return null;
                           },
-                          onSaved: (newValue) => _enteredPassword = newValue!,
+                          onSaved: (newValue) => _firstName = newValue!,
                         ),
                         const SizedBox(
                           height: 35,
@@ -297,23 +304,18 @@ class _RegisterFormState extends State<RegisterForm> {
                               borderRadius: BorderRadius.circular(25.0),
                             ),
                           ),
-                          textCapitalization: TextCapitalization.none,
+                          textCapitalization: TextCapitalization.words,
                           autocorrect: false,
-                          obscureText: true,
+                          obscureText: false,
                           enableSuggestions: false,
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.trim().length < 8 ||
-                                value.trim().length > 100) {
-                              return 'Please enter a valid Password (At least 8 characters) ';
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid Name';
                             }
-                            if (value != _enteredPassword) {
-                              return 'Both Passwords have to match';
-                            }
+
                             return null;
                           },
-                          onSaved: (newValue) => _confirmPassword = newValue!,
+                          onSaved: (newValue) => _lastName = newValue!,
                         ),
                         const SizedBox(
                           height: 35,
@@ -327,7 +329,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             ),
                             OutlinedButton(
                               /* TODO: Chnage Validation Function */
-                              onPressed: () => _saveItemStep1(),
+                              onPressed: () => _saveItemStep2(),
                               style: OutlinedButton.styleFrom(
                                 side: const BorderSide(
                                   color: Color.fromARGB(255, 244, 130, 70),
@@ -346,15 +348,37 @@ class _RegisterFormState extends State<RegisterForm> {
                       ],
                     ),
                   ),
+
                   /* NOTE: Adress and Shipping Info */
                   Form(
                     key: _formKey3,
                     child: Column(
                       children: [
+                        DropdownButtonFormField(
+                          value: _billingAdress['countryId']!,
+                          items: snapshot.data!['countries']!
+                              .map<DropdownMenuItem<String>>(
+                                (ele) => DropdownMenuItem<String>(
+                                  value: ele['id'],
+                                  child: Text(
+                                    ele['name'],
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) {
+                              return;
+                            }
+                            setState(() {
+                              _billingAdress['countryId'] = value;
+                            });
+                          },
+                        ),
                         TextFormField(
                           maxLength: 100,
                           decoration: InputDecoration(
-                            label: const Text('Email'),
+                            label: const Text('Street'),
                             labelStyle: const TextStyle(color: Colors.grey),
                             floatingLabelStyle: const TextStyle(
                               color: Color.fromARGB(255, 244, 130, 70),
@@ -391,7 +415,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         TextFormField(
                           maxLength: 100,
                           decoration: InputDecoration(
-                            label: const Text('Password'),
+                            label: const Text('Zip-code'),
                             labelStyle: const TextStyle(color: Colors.grey),
                             floatingLabelStyle: const TextStyle(
                                 color: Color.fromARGB(255, 244, 130, 70)),
@@ -429,7 +453,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         TextFormField(
                           maxLength: 100,
                           decoration: InputDecoration(
-                            label: const Text('Confirm Password'),
+                            label: const Text('City'),
                             labelStyle: const TextStyle(color: Colors.grey),
                             floatingLabelStyle: const TextStyle(
                                 color: Color.fromARGB(255, 244, 130, 70)),
