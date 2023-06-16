@@ -172,7 +172,7 @@ class ShopwareApiHelper {
 
   Future<Map>? getRegistrationInfo() async {
     final salutationResponse = await getSalutationIds();
-    final countryResponse = await getCategories();
+    final countryResponse = await getCountries();
 
     return {
       'salutations': salutationResponse,
