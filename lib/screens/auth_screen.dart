@@ -29,7 +29,10 @@ class _AuthScreenState extends State<AuthScreen> {
           children: [
             Text(
               isLogin ? 'Login' : 'Register',
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 77, 75, 76)),
             ),
             const SizedBox(
               height: 20,
@@ -44,7 +47,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     isLogin = !isLogin;
                   });
                 },
-                child: Text(isLogin ? 'Register' : 'Login'))
+                child: Text(
+                  isLogin ? 'Register' : 'Login',
+                  style:
+                      const TextStyle(color: Color.fromARGB(200, 244, 130, 70)),
+                ))
           ],
         ),
       ),
