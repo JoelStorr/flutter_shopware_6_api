@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -42,454 +43,470 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(25),
-        child: IndexedStack(
-          index: _registerStage,
-          children: [
-            /* NOTE: Get Email & Password */
-            Form(
-              key: _formKey1,
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Email'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                        color: Color.fromARGB(255, 244, 130, 70),
-                      ),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length <= 1 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Email adress ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredEmail = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Password'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    onChanged: (value) => _enteredPassword = value,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Confirm Password'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      if (value != _enteredPassword) {
-                        return 'Both Passwords have to match';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _confirmPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Step ${_registerStage + 1} of 3'),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      OutlinedButton(
-                        onPressed: () => _saveItemStep1(),
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2,
-                          ),
-                          foregroundColor:
-                              const Color.fromARGB(255, 244, 130, 70),
-                        ),
-                        child: const Text(
-                          'Next Step',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+        child: FutureBuilder(
+            future: ShopwareApiHelper().getRegistrationInfo(),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return const Center(
+                  child: Text('Something went wrong, please restart the App'),
+                );
+              } else if (snapshot.data!['salutations'] == null ||
+                  snapshot.data!['countries']) {
+                return const Center(
+                  child: Text(
+                      'We could Get all information from our Servers. Please restart the App.'),
+                );
+              }
 
-            /* NOTE: Get Name Info and Gender */
-            Form(
-              key: _formKey2,
-              child: Column(
+              return IndexedStack(
+                index: _registerStage,
                 children: [
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Gender'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                        color: Color.fromARGB(255, 244, 130, 70),
-                      ),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length <= 1 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Email adress ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredEmail = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('First Name'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    onChanged: (value) => _enteredPassword = value,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Last Name'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      if (value != _enteredPassword) {
-                        return 'Both Passwords have to match';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _confirmPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Step ${_registerStage + 1} of 3'),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      OutlinedButton(
-                        /* TODO: Chnage Validation Function */
-                        onPressed: () => _saveItemStep1(),
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2,
+                  /* NOTE: Get Email & Password */
+                  Form(
+                    key: _formKey1,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Email'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 244, 130, 70),
+                            ),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
                           ),
-                          foregroundColor:
-                              const Color.fromARGB(255, 244, 130, 70),
+                          keyboardType: TextInputType.emailAddress,
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length <= 1 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Email adress ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredEmail = newValue!,
                         ),
-                        child: const Text(
-                          'Next Step',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        const SizedBox(
+                          height: 35,
                         ),
-                      ),
-                    ],
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Password'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          onChanged: (value) => _enteredPassword = value,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Confirm Password'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            if (value != _enteredPassword) {
+                              return 'Both Passwords have to match';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _confirmPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Step ${_registerStage + 1} of 3'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            OutlinedButton(
+                              onPressed: () => _saveItemStep1(),
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2,
+                                ),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 244, 130, 70),
+                              ),
+                              child: const Text(
+                                'Next Step',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /* NOTE: Get Name Info and Gender */
+                  Form(
+                    key: _formKey2,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Gender'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 244, 130, 70),
+                            ),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length <= 1 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Email adress ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredEmail = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('First Name'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          onChanged: (value) => _enteredPassword = value,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Last Name'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            if (value != _enteredPassword) {
+                              return 'Both Passwords have to match';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _confirmPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Step ${_registerStage + 1} of 3'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            OutlinedButton(
+                              /* TODO: Chnage Validation Function */
+                              onPressed: () => _saveItemStep1(),
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2,
+                                ),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 244, 130, 70),
+                              ),
+                              child: const Text(
+                                'Next Step',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  /* NOTE: Adress and Shipping Info */
+                  Form(
+                    key: _formKey3,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Email'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 244, 130, 70),
+                            ),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length <= 1 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Email adress ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredEmail = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Password'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          onChanged: (value) => _enteredPassword = value,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _enteredPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        TextFormField(
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            label: const Text('Confirm Password'),
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 244, 130, 70)),
+                            counterText: "",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2.0),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: false,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().length < 8 ||
+                                value.trim().length > 100) {
+                              return 'Please enter a valid Password (At least 8 characters) ';
+                            }
+                            if (value != _enteredPassword) {
+                              return 'Both Passwords have to match';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) => _confirmPassword = newValue!,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Step ${_registerStage + 1} of 3'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            OutlinedButton(
+                              /* TODO: Chnage Validation Function */
+                              onPressed: () => _saveItemStep1(),
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 244, 130, 70),
+                                  width: 2,
+                                ),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 244, 130, 70),
+                              ),
+                              child: const Text(
+                                'Next Step',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-            ),
-            /* NOTE: Adress and Shipping Info */
-            Form(
-              key: _formKey3,
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Email'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                        color: Color.fromARGB(255, 244, 130, 70),
-                      ),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length <= 1 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Email adress ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredEmail = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Password'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    onChanged: (value) => _enteredPassword = value,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _enteredPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    maxLength: 100,
-                    decoration: InputDecoration(
-                      label: const Text('Confirm Password'),
-                      labelStyle: const TextStyle(color: Colors.grey),
-                      floatingLabelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 244, 130, 70)),
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length < 8 ||
-                          value.trim().length > 100) {
-                        return 'Please enter a valid Password (At least 8 characters) ';
-                      }
-                      if (value != _enteredPassword) {
-                        return 'Both Passwords have to match';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _confirmPassword = newValue!,
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Step ${_registerStage + 1} of 3'),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      OutlinedButton(
-                        /* TODO: Chnage Validation Function */
-                        onPressed: () => _saveItemStep1(),
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
-                            color: Color.fromARGB(255, 244, 130, 70),
-                            width: 2,
-                          ),
-                          foregroundColor:
-                              const Color.fromARGB(255, 244, 130, 70),
-                        ),
-                        child: const Text(
-                          'Next Step',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
+              );
+            }));
   }
 }
