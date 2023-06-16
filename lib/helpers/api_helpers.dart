@@ -133,4 +133,50 @@ class ShopwareApiHelper {
 
     return elements;
   }
+
+  Future<List<Map<dynamic, dynamic>>>? getSalutationIds() async {
+    final response = await http.post(
+      generateURL('salutation'),
+      headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+      },
+    );
+
+    final Map<String, dynamic> productList = json.decode(response.body);
+    final List<Map<String, dynamic>> elements;
+
+    elements = List<Map<String, dynamic>>.from(productList['elements']);
+    print(productList);
+
+    return elements;
+  }
+
+  Future<List<Map<dynamic, dynamic>>>? getCountries() async {
+    final response = await http.post(
+      generateURL('country'),
+      headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+      },
+    );
+
+    final Map<String, dynamic> productList = json.decode(response.body);
+    final List<Map<String, dynamic>> elements;
+
+    elements = List<Map<String, dynamic>>.from(productList['elements']);
+    print(productList);
+
+    return elements;
+  }
+
+  Future<Map>? getRegistrationInfo() async {
+    final salutationResponse = await getSalutationIds();
+    final countryResponse = await getCategories();
+
+    return {
+      'salutations': salutationResponse,
+      'countries': countryResponse,
+    };
+  }
 }
