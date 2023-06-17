@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  LoginForm({super.key, required this.changeLogin});
 
+  Function changeLogin;
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
@@ -13,9 +15,14 @@ class _LoginFormState extends State<LoginForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void _saveItem() {
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
+      final contexToken = await ShopwareApiHelper()
+          .loginCustomer(email: _enteredEmail, password: _enteredPassword);
+
+      widget.changeLogin(contexToken);
     }
   }
 

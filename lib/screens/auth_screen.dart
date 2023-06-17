@@ -40,7 +40,9 @@ class _AuthScreenState extends State<AuthScreen> {
               height: 20,
             ),
             isLogin
-                ? LoginForm()
+                ? LoginForm(
+                    changeLogin: widget.changeLogin,
+                  )
                 : RegisterForm(
                     changeLogin: widget.changeLogin,
                   ),

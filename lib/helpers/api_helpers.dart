@@ -226,4 +226,29 @@ class ShopwareApiHelper {
     final Map<String, String> contextValue = await response.headers;
     return contextValue['sw-context-token'];
   }
+
+  Future<String?> loginCustomer({
+    required String email,
+    required String password,
+  }) async {
+    final contextToken = await getContext();
+
+    final response = await http.post(
+      generateURL('account/login'),
+      headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        'sw-context-token': contextToken,
+      },
+      body: jsonEncode(
+        {
+          "email": email,
+          "password": password,
+        },
+      ),
+    );
+
+    final Map<String, dynamic> contextValue = json.decode(response.body);
+    return contextValue['contextToken'];
+  }
 }
