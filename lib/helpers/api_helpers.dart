@@ -193,7 +193,7 @@ class ShopwareApiHelper {
     };
   }
 
-  Future registerCustomer({
+  Future<String?> registerCustomer({
     required String salutationId,
     required String firstName,
     required String lastName,
@@ -203,13 +203,15 @@ class ShopwareApiHelper {
   }) async {
     final contextToken = await getContext();
 
-    final response = await http.post(generateURL('account/register'),
-        headers: {
-          'Content-Type': 'application/json',
-          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
-          'sw-context-token': contextToken,
-        },
-        body: jsonEncode({
+    final response = await http.post(
+      generateURL('account/register'),
+      headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        'sw-context-token': contextToken,
+      },
+      body: jsonEncode(
+        {
           "salutationId": salutationId,
           "firstName": firstName,
           "lastName": lastName,
@@ -217,8 +219,11 @@ class ShopwareApiHelper {
           "password": password,
           "storefrontUrl": "http://localhost/app",
           "billingAddress": billingAddress
-        }));
+        },
+      ),
+    );
 
-    print(response);
+    final Map<String, String> contextValue = await response.headers;
+    return contextValue['sw-context-token'];
   }
 }

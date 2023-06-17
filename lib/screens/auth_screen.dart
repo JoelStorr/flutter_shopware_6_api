@@ -3,7 +3,9 @@ import 'package:flutter_shopware_6_api/widgets/auth/login.dart';
 import 'package:flutter_shopware_6_api/widgets/auth/register.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+  AuthScreen({super.key, required this.changeLogin});
+
+  Function changeLogin;
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -37,7 +39,11 @@ class _AuthScreenState extends State<AuthScreen> {
             const SizedBox(
               height: 20,
             ),
-            isLogin ? LoginForm() : RegisterForm(),
+            isLogin
+                ? LoginForm()
+                : RegisterForm(
+                    changeLogin: widget.changeLogin,
+                  ),
             const SizedBox(
               height: 20,
             ),

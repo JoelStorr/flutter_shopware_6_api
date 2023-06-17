@@ -28,6 +28,12 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   String? isLoggedIn;
 
+  void changeLogIn(String context) {
+    setState(() {
+      isLoggedIn = context;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,6 +43,10 @@ class _AppState extends State<App> {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
-        home: isLoggedIn == null ? AuthScreen() : TabScreen());
+        home: isLoggedIn == null
+            ? AuthScreen(
+                changeLogin: changeLogIn,
+              )
+            : TabScreen());
   }
 }

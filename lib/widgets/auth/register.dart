@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 
 class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+  RegisterForm({super.key, required this.changeLogin});
+
+  Function changeLogin;
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -48,20 +50,23 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  void _saveItemStep3() {
+  void _saveItemStep3() async {
     if (_formKey3.currentState!.validate()) {
       _formKey3.currentState!.save();
       setState(() {
         _registerStage = 3;
       });
 
-      ShopwareApiHelper().registerCustomer(
-          salutationId: _salutationId,
-          firstName: _firstName,
-          lastName: _lastName,
-          email: _enteredEmail,
-          password: _enteredPassword,
-          billingAddress: _billingAdress);
+      final contextKey = await ShopwareApiHelper().registerCustomer(
+        salutationId: _salutationId,
+        firstName: _firstName,
+        lastName: _lastName,
+        email: _enteredEmail,
+        password: _enteredPassword,
+        billingAddress: _billingAdress,
+      );
+
+      widget.changeLogin(contextKey);
     }
   }
 
