@@ -29,7 +29,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         final contexToken = await ShopwareApiHelper()
             .loginCustomer(email: _enteredEmail, password: _enteredPassword);
 
-        //TODO: Change to global State
+        //TODO: Incoporate wrong email or Password
         /* widget.changeLogin(contexToken); */
         ref.watch(authProvider.notifier).setAuth(contexToken!);
       }

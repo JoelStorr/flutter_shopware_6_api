@@ -251,4 +251,28 @@ class ShopwareApiHelper {
     final Map<String, dynamic> contextValue = json.decode(response.body);
     return contextValue['contextToken'];
   }
+
+  Future<Map<dynamic, dynamic>>? checkCustomer(
+      {required String contextToken}) async {
+    try {
+      final response = await http.post(
+        generateURL('account/customer'),
+        headers: {
+          'Content-Type': 'application/json',
+          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+          'sw-context-token': contextToken,
+        },
+      );
+
+      final Map<String, dynamic> customerData = json.decode(response.body);
+      final Map<String, dynamic> elements;
+
+      elements = Map<String, dynamic>.from(customerData);
+      print(customerData);
+
+      return elements;
+    } catch (e) {
+      throw Error();
+    }
+  }
 }
