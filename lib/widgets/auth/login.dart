@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 
-class LoginForm extends StatefulWidget {
-  LoginForm({super.key, required this.changeLogin});
+class LoginForm extends ConsumerStatefulWidget {
+  LoginForm({
+    super.key,
+    /* required this.changeLogin */
+  });
 
-  Function changeLogin;
+  /* Function changeLogin; */
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   var _enteredEmail;
   var _enteredPassword;
 
   final _formKey = GlobalKey<FormState>();
 
-  void _saveItem() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      final contexToken = await ShopwareApiHelper()
-          .loginCustomer(email: _enteredEmail, password: _enteredPassword);
-
-      widget.changeLogin(contexToken);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    void _saveItem() async {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+
+        final contexToken = await ShopwareApiHelper()
+            .loginCustomer(email: _enteredEmail, password: _enteredPassword);
+
+        //TODO: Change to global State
+        /* widget.changeLogin(contexToken); */
+        ref.watch(authProvider.notifier).setAuth(contexToken!);
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.all(25),
       child: Form(

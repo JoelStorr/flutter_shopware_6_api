@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 
-class RegisterForm extends StatefulWidget {
-  RegisterForm({super.key, required this.changeLogin});
+class RegisterForm extends ConsumerStatefulWidget {
+  const RegisterForm({
+    super.key,
+    /* required this.changeLogin */
+  });
 
-  Function changeLogin;
+  /* Function changeLogin; */
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  ConsumerState<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   var _enteredEmail;
   var _enteredPassword;
   var _confirmPassword;
@@ -50,28 +55,31 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  void _saveItemStep3() async {
-    if (_formKey3.currentState!.validate()) {
-      _formKey3.currentState!.save();
-      setState(() {
-        _registerStage = 3;
-      });
-
-      final contextKey = await ShopwareApiHelper().registerCustomer(
-        salutationId: _salutationId,
-        firstName: _firstName,
-        lastName: _lastName,
-        email: _enteredEmail,
-        password: _enteredPassword,
-        billingAddress: _billingAdress,
-      );
-
-      widget.changeLogin(contextKey);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _setLogin = ref.read(authProvider.notifier).setAuth;
+
+    void _saveItemStep3() async {
+      if (_formKey3.currentState!.validate()) {
+        _formKey3.currentState!.save();
+        setState(() {
+          _registerStage = 3;
+        });
+
+        final contextKey = await ShopwareApiHelper().registerCustomer(
+          salutationId: _salutationId,
+          firstName: _firstName,
+          lastName: _lastName,
+          email: _enteredEmail,
+          password: _enteredPassword,
+          billingAddress: _billingAdress,
+        );
+
+        /* widget.changeLogin(contextKey); */
+        ref.watch(authProvider.notifier).setAuth(contextKey!);
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.all(25),
       child: FutureBuilder(

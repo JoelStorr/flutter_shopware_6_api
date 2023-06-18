@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/screens/auth_screen.dart';
 import 'dart:io';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_shopware_6_api/screens/tab_screen.dart';
+import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -15,27 +17,20 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
-class App extends StatefulWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String isLoggedIn = ref.watch(authProvider);
 
-class _AppState extends State<App> {
-  String? isLoggedIn = 'demo';
-
-  void changeLogIn(String context) {
-    setState(() {
-      isLoggedIn = context;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
         title: 'My App',
         theme: ThemeData().copyWith(
@@ -43,10 +38,6 @@ class _AppState extends State<App> {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
-        home: isLoggedIn == null
-            ? AuthScreen(
-                changeLogin: changeLogIn,
-              )
-            : TabScreen());
+        home: isLoggedIn.isEmpty ? AuthScreen() : const TabScreen());
   }
 }
