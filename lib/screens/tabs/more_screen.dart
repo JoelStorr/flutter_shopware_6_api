@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/profile_screen.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 
@@ -46,15 +47,27 @@ class _MoreScreenState extends State<MoreScreen> {
                 ],
               ),
               body: Stack(
+                alignment: AlignmentDirectional.topCenter,
                 children: [
                   SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
                           height: 80,
                         ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 224, 223, 225),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: const Text('Demo3'),
+                        )
                       ],
                     ),
                   ),
@@ -67,9 +80,7 @@ class _MoreScreenState extends State<MoreScreen> {
                         activeElement: 'left',
                         textLeft: 'More',
                         textRight: 'Profile',
-                        navigateTo: MoreScreen(
-                          navigatorKey: widget.navigatorKey,
-                        ),
+                        navigateTo: const ProfileScreen(),
                       ),
                     ],
                   ),
