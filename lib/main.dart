@@ -26,7 +26,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String? isLoggedIn;
+  String? isLoggedIn = 'demo';
 
   void changeLogIn(String context) {
     setState(() {

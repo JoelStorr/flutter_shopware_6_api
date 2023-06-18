@@ -223,7 +223,7 @@ class ShopwareApiHelper {
       ),
     );
 
-    final Map<String, String> contextValue = await response.headers;
+    final Map<String, String> contextValue = response.headers;
     return contextValue['sw-context-token'];
   }
 
