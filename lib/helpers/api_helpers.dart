@@ -66,7 +66,6 @@ class ShopwareApiHelper {
     if (item == null) {
       throw Exception();
     }
-    print(item['id']);
 
     final response =
         await http.post(generateURL('product-listing/${item['id']}'),
@@ -84,7 +83,6 @@ class ShopwareApiHelper {
     final List<Map<String, dynamic>> elements;
 
     elements = List<Map<String, dynamic>>.from(productList['elements']);
-    print(productList);
 
     return elements;
   }
@@ -106,7 +104,6 @@ class ShopwareApiHelper {
     final List<Map<String, dynamic>> elements;
 
     elements = List<Map<String, dynamic>>.from(productList['elements']);
-    print(productList);
 
     return elements;
   }
@@ -129,7 +126,6 @@ class ShopwareApiHelper {
     final List<Map<String, dynamic>> elements;
 
     elements = List<Map<String, dynamic>>.from(productList['elements']);
-    print(productList);
 
     return elements;
   }
@@ -147,7 +143,6 @@ class ShopwareApiHelper {
     final List<Map<String, dynamic>> elements;
 
     elements = List<Map<String, dynamic>>.from(productList['elements']);
-    print(productList);
 
     return elements;
   }
@@ -268,7 +263,6 @@ class ShopwareApiHelper {
       final Map<String, dynamic> elements;
 
       elements = Map<String, dynamic>.from(customerData);
-      print(customerData);
 
       return elements;
     } catch (e) {

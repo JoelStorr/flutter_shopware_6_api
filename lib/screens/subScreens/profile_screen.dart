@@ -49,12 +49,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         .checkCustomer(contextToken: contextToken),
                     builder: (ctx, snapshot) {
                       if (snapshot.data == null) {
-                        return Center(
+                        return const Center(
                           child: Text('Could not get the data'),
                         );
                       }
 
-                      return Placeholder();
+                      return const Placeholder();
                     }),
               ],
             ),
