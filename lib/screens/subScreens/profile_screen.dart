@@ -54,130 +54,282 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         );
                       }
 
-                      return Column(
-                        children: [
-                          Text('Hello,${snapshot.data!['firstName']}'),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text('Personal'),
-                          GridView(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 3 / 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
+                      return Container(
+                        padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hello,${snapshot.data!['firstName']}',
+                              style: const TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold),
                             ),
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text('First Name'),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      snapshot.data!['firstName'],
-                                    ),
-                                    const Divider(
-                                      indent: 5.0,
-                                      color: Colors.black12,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    const Text('Last Name'),
-                                    Text(snapshot.data!['lastName']),
-                                  ],
-                                ),
-                              ),
-                              //TODO: Fix Salutation
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    const Text('Salutation'),
-                                    Text(snapshot.data!['salutation']
-                                        ['salutationKey']),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    const Text('Age'),
-                                    Text(snapshot.data!['birthday'] ??
-                                        'Placeholder'),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text('Adress'),
-                          GridView(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 3 / 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
+                            const SizedBox(
+                              height: 30,
                             ),
-                            children: [
-                              SizedBox(
-                                height: 50,
-                                child: Column(
-                                  children: [
-                                    Text('Street'),
-                                    Text(snapshot.data!['street'])
-                                  ],
-                                ),
+                            const Text(
+                              'Personal',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            GridView(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 50,
+                                mainAxisSpacing: 50,
                               ),
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    Text('Zip Code'),
-                                    Text(snapshot.data!['zipcode'])
-                                  ],
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'First Name',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['firstName'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    Text('City'),
-                                    Text(snapshot.data!['city'])
-                                  ],
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Last Name',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['lastName'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                                child: Column(
-                                  children: [
-                                    Text('Country'),
-                                    Text(snapshot.data!['country']['name'])
-                                  ],
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Salutation',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['salutation']
+                                            ['displayName'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
                                 ),
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Age',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['birthday'] ?? 'Not Set',
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              'Adress',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            GridView(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 50,
+                                mainAxisSpacing: 50,
                               ),
-                            ],
-                          )
-                        ],
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Street',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(snapshot.data!['street']),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Zip Code',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['zipcode'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'City',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['city'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Country',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data!['country']['name'],
+                                      ),
+                                      const Divider(
+                                        indent: 5.0,
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       );
                     }),
               ],
