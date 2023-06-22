@@ -251,7 +251,7 @@ class ShopwareApiHelper {
       {required String contextToken}) async {
     try {
       final response = await http.post(
-        generateURL('account/customer'),
+        generateURL('account/list-address'),
         headers: {
           'Content-Type': 'application/json',
           'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
@@ -262,7 +262,7 @@ class ShopwareApiHelper {
       final Map<String, dynamic> customerData = json.decode(response.body);
       final Map<String, dynamic> elements;
 
-      elements = Map<String, dynamic>.from(customerData);
+      elements = Map<String, dynamic>.from(customerData['elements'][0]);
 
       return elements;
     } catch (e) {
