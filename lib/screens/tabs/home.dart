@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/category_screen.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/last_orders_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/category_card.dart';
@@ -97,22 +98,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                         snapshot.data![index]['properties']
                                                 .length >
                                             0) {
-                                      return NewProductCard(
-                                        id: snapshot.data![index]['id'],
-                                        name: snapshot.data![index]
-                                            ['translated']['name'],
-                                        imageURL: snapshot.data![index]['cover']
-                                            ['media']['url'],
-                                        buttonColor: snapshot.data![index]
-                                            ['properties'][0]['colorHexCode'],
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return ProductScreen();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: NewProductCard(
+                                          id: snapshot.data![index]['id'],
+                                          name: snapshot.data![index]
+                                              ['translated']['name'],
+                                          imageURL: snapshot.data![index]
+                                              ['cover']['media']['url'],
+                                          buttonColor: snapshot.data![index]
+                                              ['properties'][0]['colorHexCode'],
+                                        ),
                                       );
                                     } else {
-                                      return NewProductCard(
-                                        id: snapshot.data![index]['id'],
-                                        name: snapshot.data![index]
-                                            ['translated']['name'],
-                                        imageURL: snapshot.data![index]['cover']
-                                            ['media']['url'],
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return ProductScreen();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: NewProductCard(
+                                          id: snapshot.data![index]['id'],
+                                          name: snapshot.data![index]
+                                              ['translated']['name'],
+                                          imageURL: snapshot.data![index]
+                                              ['cover']['media']['url'],
+                                        ),
                                       );
                                     }
                                   },
