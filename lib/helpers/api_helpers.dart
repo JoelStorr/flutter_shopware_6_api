@@ -269,4 +269,25 @@ class ShopwareApiHelper {
       throw Error();
     }
   }
+
+  Future<Map<dynamic, dynamic>>? getProduct({required String productID}) async {
+    try {
+      final response = await http.post(
+        generateURL('product/$productID'),
+        headers: {
+          'Content-Type': 'application/json',
+          'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        },
+      );
+
+      final Map<String, dynamic> customerData = json.decode(response.body);
+      final Map<String, dynamic> elements;
+
+      elements = Map<String, dynamic>.from(customerData['elements'][0]);
+
+      return elements;
+    } catch (e) {
+      throw Error();
+    }
+  }
 }
