@@ -103,7 +103,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                                return ProductScreen();
+                                                return ProductScreen(
+                                                  productId: snapshot
+                                                      .data![index]['id'],
+                                                );
                                               },
                                             ),
                                           );
@@ -124,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                                return ProductScreen();
+                                                return ProductScreen(
+                                                  productId: snapshot
+                                                      .data![index]['id'],
+                                                );
                                               },
                                             ),
                                           );
