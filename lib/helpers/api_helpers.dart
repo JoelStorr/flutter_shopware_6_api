@@ -283,7 +283,7 @@ class ShopwareApiHelper {
       final Map<String, dynamic> customerData = json.decode(response.body);
       final Map<String, dynamic> elements;
 
-      elements = Map<String, dynamic>.from(customerData['elements'][0]);
+      elements = Map<String, dynamic>.from(customerData['product']);
 
       return elements;
     } catch (e) {
