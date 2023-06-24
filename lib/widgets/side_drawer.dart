@@ -68,8 +68,8 @@ class MyDrawer extends StatelessWidget {
                           title: Text(snapshot.data![index]['name'].toString()),
                           onTap: () {},
                         );
-                      });
-                }),
+                      },);
+                },),
           ),
         ],
       ),

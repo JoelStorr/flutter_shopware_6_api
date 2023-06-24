@@ -160,7 +160,6 @@ class ShopwareApiHelper {
     final List<Map<String, dynamic>> elements;
 
     elements = List<Map<String, dynamic>>.from(productList['elements']);
-    print(productList);
 
     return elements;
   }
