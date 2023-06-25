@@ -89,16 +89,87 @@ class _ProductScreenState extends State<ProductScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  child: Row(children: [
-                                    IconButton(
+                                Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                        padding: const EdgeInsets.all(0),
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty
+                                              .resolveWith<Color>((states) {
+                                            if (states.contains(
+                                                MaterialState.disabled)) {
+                                              return Colors.transparent;
+                                            }
+                                            return const Color.fromARGB(
+                                                255, 249, 185, 151);
+                                          }),
+                                          shape: MaterialStateProperty
+                                              .resolveWith<OutlinedBorder>((_) {
+                                            return const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(5.0),
+                                                    bottomRight:
+                                                        Radius.circular(5.0)));
+                                          }),
+                                          fixedSize: MaterialStateProperty
+                                              .resolveWith<Size>((states) =>
+                                                  const Size(30, 30)),
+                                        ),
                                         onPressed: () {},
-                                        icon: Icon(Icons.remove)),
-                                    Text('x1'),
-                                    IconButton(
-                                        onPressed: () {}, icon: Icon(Icons.add))
-                                  ]),
-                                ),
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        alignment: Alignment.center,
+                                        color: const Color.fromARGB(
+                                            255, 244, 130, 70),
+                                        child: const Text(
+                                          'x1',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      IconButton(
+                                          padding: const EdgeInsets.all(0),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .resolveWith<Color>(
+                                                        (states) {
+                                              if (states.contains(
+                                                  MaterialState.disabled)) {
+                                                return Colors.transparent;
+                                              }
+                                              return const Color.fromARGB(
+                                                  255, 249, 185, 151);
+                                            }),
+                                            shape: MaterialStateProperty
+                                                .resolveWith<OutlinedBorder>(
+                                                    (_) {
+                                              return const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  5.0),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  5.0)));
+                                            }),
+                                          ),
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ))
+                                    ]),
                                 TextButton(
                                   onPressed: () {},
                                   style: ButtonStyle(
@@ -133,13 +204,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        BoxShadow(
-                                            color:
-                                                Color.fromARGB(137, 70, 70, 70),
-                                            offset: Offset(1.0, 2.0),
-                                            blurRadius: 2.0)
-                                      ],
+                                      shadows: [],
                                     ),
                                   ),
                                 ),
