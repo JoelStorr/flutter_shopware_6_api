@@ -4,9 +4,9 @@ import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/product_detail/order_buttons.dart';
 
 class ProductScreen extends StatefulWidget {
-  ProductScreen({super.key, required this.productId});
+  const ProductScreen({super.key, required this.productId});
 
-  String productId;
+  final String productId;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -160,6 +160,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     OrderButton(),
+                                    SizedBox(
+                                      height: 20,
+                                    )
                                   ],
                                 ),
                               )
