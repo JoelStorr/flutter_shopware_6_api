@@ -33,7 +33,7 @@ class _ProductScreenState extends State<ProductScreen> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Stack(
           children: [
             Column(
@@ -55,7 +55,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           );
                         } else {
                           return Stack(
-                            alignment: AlignmentDirectional.bottomEnd,
                             children: [
                               SingleChildScrollView(
                                 primary: true,
@@ -149,12 +148,21 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                                     Text(snapshot.data!['translated']
                                         ['description']),
-
-                                    /* NOTE: Buttons */
+                                    const SizedBox(
+                                      height: 40,
+                                    )
                                   ],
                                 ),
                               ),
-                              const OrderButton(),
+                              const Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OrderButton(),
+                                  ],
+                                ),
+                              )
                             ],
                           );
                         }
