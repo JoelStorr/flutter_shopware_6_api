@@ -91,14 +91,30 @@ class _ProductScreenState extends State<ProductScreen> {
                                               snapshot.data!['translated']
                                                   ['name'],
                                               style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30,
-                                              ),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 30,
+                                                  color: Color.fromARGB(
+                                                    204,
+                                                    40,
+                                                    40,
+                                                    40,
+                                                  )),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
                                             ),
                                             Text(
                                               snapshot.data![
                                                       'productReviews'] ??
                                                   'Not yet Rated',
+                                              style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                  204,
+                                                  40,
+                                                  40,
+                                                  40,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -107,6 +123,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25,
+                                            color: Color.fromARGB(
+                                              204,
+                                              40,
+                                              40,
+                                              40,
+                                            ),
                                           ),
                                         )
                                       ],
@@ -124,6 +146,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 30,
+                                            color: Color.fromARGB(
+                                              204,
+                                              40,
+                                              40,
+                                              40,
+                                            ),
                                           ),
                                         ),
                                         Text(
@@ -131,6 +159,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20,
+                                            color: Color.fromARGB(
+                                              204,
+                                              40,
+                                              40,
+                                              40,
+                                            ),
                                           ),
                                         )
                                       ],
@@ -144,10 +178,26 @@ class _ProductScreenState extends State<ProductScreen> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
+                                        color: Color.fromARGB(
+                                          204,
+                                          40,
+                                          40,
+                                          40,
+                                        ),
                                       ),
                                     ),
-                                    Text(snapshot.data!['translated']
-                                        ['description']),
+                                    Text(
+                                      snapshot.data!['translated']
+                                          ['description'],
+                                      style: const TextStyle(
+                                        color: Color.fromARGB(
+                                          204,
+                                          40,
+                                          40,
+                                          40,
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 40,
                                     )
