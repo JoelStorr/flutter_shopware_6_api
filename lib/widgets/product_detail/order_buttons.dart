@@ -92,6 +92,8 @@ class OrderButton extends StatelessWidget {
         TextButton(
           onPressed: () {},
           style: ButtonStyle(
+            padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                (states) => const EdgeInsets.only(left: 40, right: 40)),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
               return const RoundedRectangleBorder(
@@ -103,7 +105,7 @@ class OrderButton extends StatelessWidget {
               if (states.contains(MaterialState.disabled)) {
                 return Colors.transparent;
               }
-              return const Color.fromARGB(255, 244, 130, 70);
+              return const Color.fromARGB(255, 241, 105, 33);
             }),
           ),
           child: const Text(
