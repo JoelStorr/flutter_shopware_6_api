@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
 class OrderButton extends StatelessWidget {
-  const OrderButton({super.key});
+  const OrderButton({
+    super.key,
+    required this.orderNumber,
+    required this.decreaseOrder,
+    required this.increasOrder,
+    required this.addItemsToCart,
+  });
+
+  final int orderNumber;
+
+  final Function decreaseOrder;
+  final Function increasOrder;
+  final Function addItemsToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +56,7 @@ class OrderButton extends StatelessWidget {
                                                   .resolveWith<Size>((states) =>
                                                       const Size(30, 30)), */
                       ),
-                  onPressed: () {},
+                  onPressed: () => decreaseOrder(),
                   icon: const Icon(
                     Icons.remove,
                     color: Colors.white,
@@ -54,9 +66,9 @@ class OrderButton extends StatelessWidget {
                   height: 30,
                   width: 50,
                   alignment: Alignment.center,
-                  child: const Text(
-                    'x1',
-                    style: TextStyle(
+                  child: Text(
+                    'x$orderNumber',
+                    style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
@@ -81,7 +93,7 @@ class OrderButton extends StatelessWidget {
                                   bottomRight: Radius.circular(5.0)));
                         }),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-                    onPressed: () {},
+                    onPressed: () => increasOrder(),
                     icon: const Icon(
                       Icons.add,
                       color: Colors.white,
@@ -90,7 +102,7 @@ class OrderButton extends StatelessWidget {
         ),
         /* NOTE: Order Button */
         TextButton(
-          onPressed: () {},
+          onPressed: () => addItemsToCart(),
           style: ButtonStyle(
             padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
                 (states) => const EdgeInsets.only(left: 40, right: 40)),
