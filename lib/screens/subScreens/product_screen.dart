@@ -13,6 +13,26 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  var orderNumber = 1;
+
+  increasOrder() {
+    setState(() {
+      orderNumber++;
+    });
+  }
+
+  decreaseOrder() {
+    if (orderNumber == 1) {
+      return;
+    } else {
+      setState(() {
+        orderNumber--;
+      });
+    }
+  }
+
+  addItemsToCart() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +95,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                           height: 160,
                                         ),
                                       ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
                                     ),
                                     /* NOTE: Name, Rating and Price */
                                     Row(
@@ -145,7 +168,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                           'Size',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 30,
+                                            fontSize: 25,
                                             color: Color.fromARGB(
                                               204,
                                               40,
@@ -204,13 +227,18 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ],
                                 ),
                               ),
-                              const Expanded(
+                              Expanded(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    OrderButton(),
-                                    SizedBox(
+                                    OrderButton(
+                                      orderNumber: orderNumber,
+                                      increasOrder: increasOrder,
+                                      decreaseOrder: decreaseOrder,
+                                      addItemsToCart: addItemsToCart,
+                                    ),
+                                    const SizedBox(
                                       height: 20,
                                     )
                                   ],
