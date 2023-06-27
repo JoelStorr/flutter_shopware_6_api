@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopware_6_api/screens/subScreens/category_screen.dart';
 import 'package:flutter_shopware_6_api/screens/tabs/home.dart';
 import 'package:flutter_shopware_6_api/screens/tabs/cart_screen.dart';
 import 'package:flutter_shopware_6_api/screens/tabs/more_screen.dart';
-import 'package:flutter_shopware_6_api/widgets/side_drawer.dart';
-
-import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -53,29 +49,6 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ),
       ),
-
-      //TODO: Implement pill button on a Per screen page
-      /* SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            activePage,
-            Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                MainPillButton(
-                  activeElement: _pillPosition,
-                  textLeft: _textLeft,
-                  textRight: _textRight,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ), */
       bottomNavigationBar: GestureDetector(
         //TODO: Add return via Doule Tab on Bottom Nav bar
         onDoubleTap: () {},
