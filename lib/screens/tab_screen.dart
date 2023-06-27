@@ -41,7 +41,9 @@ class _TabScreenState extends State<TabScreen> {
               HomeScreen(
                 navigatorKey: navigatorKeys[0]!,
               ),
-              const CartScreen(),
+              CartScreen(
+                navigatorKey: navigatorKeys[1]!,
+              ),
               MoreScreen(
                 navigatorKey: navigatorKeys[2]!,
               ),
