@@ -12,6 +12,8 @@ Uri generateURL(String parameter) {
 }
 
 class ShopwareApiHelper {
+  /* NOTE: Main App Navigation */
+
   Future<List<dynamic>> getMainNavigation() async {
     try {
       final response = await http.post(
@@ -30,6 +32,7 @@ class ShopwareApiHelper {
     }
   }
 
+/* NOTE: Get Categories */
   Future<Map<String, dynamic>> getCategories() async {
     final response = await http.post(cateoryUrl, headers: {
       'Content-Type': 'application/json',
@@ -41,6 +44,7 @@ class ShopwareApiHelper {
     return categories;
   }
 
+/* NOTE: Get Products for Category */
   Future<List<Map<dynamic, dynamic>>>? getProductsForCategory(
       String categoryName) async {
     final categoryResponse = await getCategories();
@@ -87,6 +91,7 @@ class ShopwareApiHelper {
     return elements;
   }
 
+  /* NOTE: Get Product for a given Category */
   Future<List<Map<dynamic, dynamic>>>? getProductsForCategoryID(
       String categoryId) async {
     final response = await http.post(generateURL('product-listing/$categoryId'),
@@ -108,6 +113,7 @@ class ShopwareApiHelper {
     return elements;
   }
 
+/* NOTE: Search for Product */
   Future<List<Map<dynamic, dynamic>>>? getSearchProducts(
       String searchTerm) async {
     final response = await http.post(generateURL('search'),
@@ -130,6 +136,8 @@ class ShopwareApiHelper {
     return elements;
   }
 
+  /* NOTE: Salutation Informations */
+
   Future<List<Map<dynamic, dynamic>>>? getSalutationIds() async {
     final response = await http.post(
       generateURL('salutation'),
@@ -147,6 +155,7 @@ class ShopwareApiHelper {
     return elements;
   }
 
+  /* NOTE: Accaptable Countries */
   Future<List<Map<dynamic, dynamic>>>? getCountries() async {
     final response = await http.post(
       generateURL('country'),
@@ -164,6 +173,7 @@ class ShopwareApiHelper {
     return elements;
   }
 
+  /* NOTE: Retrive Context Token */
   Future<String> getContext() async {
     final response = await http.get(
       generateURL('context'),
@@ -177,6 +187,7 @@ class ShopwareApiHelper {
     return context['token'];
   }
 
+  /* NOTE: Fetches needed informations for Registration */
   Future<Map>? getRegistrationInfo() async {
     final salutationResponse = await getSalutationIds();
     final countryResponse = await getCountries();
@@ -187,6 +198,7 @@ class ShopwareApiHelper {
     };
   }
 
+  /* NOTE: Register a new Customer */
   Future<String?> registerCustomer({
     required String salutationId,
     required String firstName,
@@ -221,6 +233,7 @@ class ShopwareApiHelper {
     return contextValue['sw-context-token'];
   }
 
+  /* NOTE: Login existing Customer */
   Future<String?> loginCustomer({
     required String email,
     required String password,
@@ -246,6 +259,7 @@ class ShopwareApiHelper {
     return contextValue['contextToken'];
   }
 
+/* NOTE: Check Customer Data */
   Future<Map<dynamic, dynamic>>? checkCustomer(
       {required String contextToken}) async {
     try {
@@ -269,12 +283,58 @@ class ShopwareApiHelper {
     }
   }
 
+  /* NOTE: Get Specific Product */
   Future<Map<dynamic, dynamic>>? getProduct({required String productID}) async {
     try {
       final response =
           await http.post(generateURL('product/$productID'), headers: {
         'Content-Type': 'application/json',
         'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+      });
+      /* body: jsonEncode({'options': []})); */
+
+      final Map<String, dynamic> customerData = json.decode(response.body);
+      final Map<String, dynamic> elements;
+
+      elements = Map<String, dynamic>.from(customerData['product']);
+
+      return elements;
+    } catch (e) {
+      throw Error();
+    }
+  }
+
+/* NOTE: Create a Cart */
+  Future<Map<dynamic, dynamic>>? createCart(
+      {required String contextToken}) async {
+    try {
+      final response = await http.post(generateURL('checkout/cart'), headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        'sw-context-token': contextToken,
+      });
+      /* body: jsonEncode({'options': []})); */
+
+      final Map<String, dynamic> cartInfo = json.decode(response.body);
+      final Map<String, dynamic> cart;
+
+      cart = Map<String, dynamic>.from(cartInfo);
+
+      return cart;
+    } catch (e) {
+      throw Error();
+    }
+  }
+
+  /* NOTE: Add item / items to Cart */
+  Future<Map<dynamic, dynamic>>? addToCart(
+      {required String contextToken}) async {
+    try {
+      final response =
+          await http.post(generateURL('checkout/cart/line-item'), headers: {
+        'Content-Type': 'application/json',
+        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+        'sw-context-token': contextToken,
       });
       /* body: jsonEncode({'options': []})); */
 
