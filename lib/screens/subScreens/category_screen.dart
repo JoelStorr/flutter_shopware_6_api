@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/product_card.dart';
 
@@ -59,19 +60,33 @@ class CategoryScreen extends StatelessWidget {
                           itemCount: snapshot.data!.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return ProductCard(
-                              id: snapshot.data![index]['id'],
-                              name: snapshot.data![index]['translated']['name'],
-                              imageUrl: snapshot.data![index]['cover']['media']
-                                  ['url'],
-                              ratingAverage: snapshot.data![index]
-                                  ['ratingAverage'],
-                              weight: snapshot.data![index]['weight'],
-                              price: snapshot.data![index]['calculatedPrice']
-                                  ['totalPrice'],
-                              available: snapshot.data![index]['available'],
-                              avilableStock: snapshot.data![index]
-                                  ['availableStock'],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return ProductScreen(
+                                        productId: snapshot.data![index]['id'],
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: ProductCard(
+                                id: snapshot.data![index]['id'],
+                                name: snapshot.data![index]['translated']
+                                    ['name'],
+                                imageUrl: snapshot.data![index]['cover']
+                                    ['media']['url'],
+                                ratingAverage: snapshot.data![index]
+                                    ['ratingAverage'],
+                                weight: snapshot.data![index]['weight'],
+                                price: snapshot.data![index]['calculatedPrice']
+                                    ['totalPrice'],
+                                available: snapshot.data![index]['available'],
+                                avilableStock: snapshot.data![index]
+                                    ['availableStock'],
+                              ),
                             );
                           },
                           separatorBuilder: (context, index) => const SizedBox(
