@@ -51,69 +51,104 @@ class ProductCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Row(
-              children: [
-                Image.network(
-                  imageUrl,
-                  width: 75,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+          Row(
+            children: [
+              Image.network(
+                imageUrl,
+                width: 75,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(
+                            204,
+                            40,
+                            40,
+                            40,
                           ),
                         ),
-                        //TODO: Make ratin Widget
-                        Text('$ratingAverage'),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 48,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(500),
-                            ),
-                            color: Colors.green,
+                      ),
+                      //TODO: Make ratin Widget
+                      Text(
+                        '$ratingAverage',
+                        style: TextStyle(
+                          color: Color.fromARGB(
+                            204,
+                            40,
+                            40,
+                            40,
                           ),
-                          child: ClipOval(
-                            child: BackdropFilter(
-                              filter:
-                                  ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
-                              child: Container(
-                                color: Colors.black.withOpacity(0.1),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 48,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 10,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(500),
+                          ),
+                          color: Colors.green,
+                        ),
+                        child: ClipOval(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
+                            child: Container(
+                              color: Colors.black.withOpacity(0.1),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      available
+                          ? const Text(
+                              'Avalible',
+                              style: TextStyle(
+                                color: Color.fromARGB(
+                                  204,
+                                  40,
+                                  40,
+                                  40,
+                                ),
+                              ),
+                            )
+                          : const Text(
+                              'Back soon',
+                              style: TextStyle(
+                                color: Color.fromARGB(
+                                  204,
+                                  40,
+                                  40,
+                                  40,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        available ? Text('Avalible') : Text('Back soon'),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ],
           ),
           Column(
             mainAxisSize: MainAxisSize.max,
@@ -124,7 +159,18 @@ class ProductCard extends StatelessWidget {
                   ? const Text('')
                   : Container(
                       margin: const EdgeInsets.only(right: 15),
-                      child: Text('${(weight! * 1000).toInt()} g')),
+                      child: Text(
+                        '${(weight! * 1000).toInt()} g',
+                        style: const TextStyle(
+                          color: Color.fromARGB(
+                            204,
+                            40,
+                            40,
+                            40,
+                          ),
+                        ),
+                      ),
+                    ),
               const SizedBox(
                 height: 20,
               ),
@@ -137,11 +183,27 @@ class ProductCard extends StatelessWidget {
                   children: [
                     const Text(
                       'Price:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(
+                          204,
+                          40,
+                          40,
+                          40,
+                        ),
+                      ),
                     ),
                     Text(
                       '$price €',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(
+                          204,
+                          40,
+                          40,
+                          40,
+                        ),
+                      ),
                     ),
                   ],
                 ),
