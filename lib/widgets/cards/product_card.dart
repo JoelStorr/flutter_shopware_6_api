@@ -81,7 +81,7 @@ class ProductCard extends StatelessWidget {
                       //TODO: Make ratin Widget
                       Text(
                         '$ratingAverage',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromARGB(
                             204,
                             40,
