@@ -69,7 +69,12 @@ class _ProductScreenState extends State<ProductScreen> {
                       future: ShopwareApiHelper()
                           .getProduct(productID: widget.productId),
                       builder: (ctx, snapshot) {
-                        if (snapshot.data == null) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 241, 105, 33)));
+                        } else if (snapshot.data == null) {
                           return const Center(
                             child: Text('No Products Found'),
                           );
