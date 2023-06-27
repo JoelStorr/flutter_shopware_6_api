@@ -328,23 +328,26 @@ class ShopwareApiHelper {
 
   /* NOTE: Add item / items to Cart */
   Future<Map<dynamic, dynamic>>? addToCart(
-      {required String contextToken}) async {
+      {required String contextToken, required Map item}) async {
     try {
-      final response =
-          await http.post(generateURL('checkout/cart/line-item'), headers: {
-        'Content-Type': 'application/json',
-        'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
-        'sw-context-token': contextToken,
-      });
-      /* body: jsonEncode({'options': []})); */
+      final response = await http.post(generateURL('checkout/cart/line-item'),
+          headers: {
+            'Content-Type': 'application/json',
+            'sw-access-key': 'SWSCWVPZS3ROZHO1NEDVDEC3VA',
+            'sw-context-token': contextToken,
+          },
+          body: jsonEncode({
+            'items': [item]
+          }));
 
-      final Map<String, dynamic> customerData = json.decode(response.body);
-      final Map<String, dynamic> elements;
+      final Map<String, dynamic> cartInfo = json.decode(response.body);
+      final Map<String, dynamic> cart;
 
-      elements = Map<String, dynamic>.from(customerData['product']);
+      cart = Map<String, dynamic>.from(cartInfo);
 
-      return elements;
+      return cart;
     } catch (e) {
+      print(e);
       throw Error();
     }
   }

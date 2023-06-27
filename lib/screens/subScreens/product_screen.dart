@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/product_detail/order_buttons.dart';
 
-class ProductScreen extends StatefulWidget {
+class ProductScreen extends ConsumerStatefulWidget {
   const ProductScreen({super.key, required this.productId});
 
   final String productId;
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  ConsumerState<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
-  var orderNumber = 1;
+class _ProductScreenState extends ConsumerState<ProductScreen> {
+  int orderNumber = 1;
 
   increasOrder() {
     setState(() {
@@ -31,7 +33,18 @@ class _ProductScreenState extends State<ProductScreen> {
     }
   }
 
-  addItemsToCart() {}
+  addItemsToCart({required String productId, required int quantity}) async {
+    final contextToken = ref.read(authProvider);
+
+    final cartItem = {
+      "type": "product",
+      "referencedId": productId,
+      "quantity": quantity,
+    };
+
+    final result = await ShopwareApiHelper()
+        .addToCart(contextToken: contextToken, item: cartItem);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +251,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     OrderButton(
+                                      productId: snapshot.data!['id'],
                                       orderNumber: orderNumber,
                                       increasOrder: increasOrder,
                                       decreaseOrder: decreaseOrder,

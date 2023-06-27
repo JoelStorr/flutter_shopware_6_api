@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class OrderButton extends StatelessWidget {
   const OrderButton({
     super.key,
+    required this.productId,
     required this.orderNumber,
     required this.decreaseOrder,
     required this.increasOrder,
     required this.addItemsToCart,
   });
 
+  final String productId;
   final int orderNumber;
-
   final Function decreaseOrder;
   final Function increasOrder;
-  final Function addItemsToCart;
+  final Function({required String productId, required int quantity})
+      addItemsToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,8 @@ class OrderButton extends StatelessWidget {
         ),
         /* NOTE: Order Button */
         TextButton(
-          onPressed: () => addItemsToCart(),
+          onPressed: () =>
+              addItemsToCart(productId: productId, quantity: orderNumber),
           style: ButtonStyle(
             padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
                 (states) => const EdgeInsets.only(left: 40, right: 40)),
