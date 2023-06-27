@@ -48,7 +48,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     future: ShopwareApiHelper()
                         .checkCustomer(contextToken: contextToken),
                     builder: (ctx, snapshot) {
-                      if (snapshot.data == null) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child: CircularProgressIndicator(
+                                color: Color.fromARGB(255, 241, 105, 33)));
+                      } else if (snapshot.data == null) {
                         return const Center(
                           child: Text('Could not get the data'),
                         );
