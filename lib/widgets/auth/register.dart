@@ -75,8 +75,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           billingAddress: _billingAdress,
         );
 
+        final cartInfo =
+            await ShopwareApiHelper().createCart(contextToken: contextKey!);
+
         /* widget.changeLogin(contextKey); */
-        ref.watch(authProvider.notifier).setAuth(contextKey!);
+        ref.watch(authProvider.notifier).setAuth(contextKey);
       }
     }
 
@@ -85,7 +88,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       child: FutureBuilder(
         future: ShopwareApiHelper().getRegistrationInfo(),
         builder: (context, snapshot) {
-          if (snapshot.data == null) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+                child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 241, 105, 33)));
+          } else if (snapshot.data == null) {
             return const Center(
               child: Text('Something went wrong, please restart the App'),
             );
@@ -541,7 +548,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 ),
               ),
               const Center(
-                child: Text('You will be logged in shortly'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('You will be logged in shortly'),
+                    CircularProgressIndicator(
+                      color: Color.fromARGB(255, 241, 105, 33),
+                    )
+                  ],
+                ),
               )
             ],
           );
