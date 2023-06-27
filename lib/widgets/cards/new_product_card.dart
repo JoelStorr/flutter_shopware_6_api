@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
 
 //Code from Stack Overflow
 extension HexColor on Color {
@@ -80,7 +81,17 @@ class NewProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return ProductScreen(
+                                    productId: id,
+                                  );
+                                },
+                              ),
+                            );
+                          },
                           style: ButtonStyle(
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             shape: MaterialStateProperty.resolveWith<
