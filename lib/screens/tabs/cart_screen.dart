@@ -83,9 +83,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                         itemCount:
                                             snapshot.data!['lineItems'].length,
                                         itemBuilder: (ctx, index) {
-                                          return Container(
-                                            child: Placeholder(),
-                                          );
+                                          return const Placeholder();
                                         })
                                   ],
                                 );
