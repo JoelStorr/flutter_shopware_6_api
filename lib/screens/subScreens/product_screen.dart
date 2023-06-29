@@ -42,7 +42,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
       "quantity": quantity,
     };
 
-    final result = await ShopwareApiHelper()
+    await ShopwareApiHelper()
         .addToCart(contextToken: contextToken, item: cartItem);
   }
 
