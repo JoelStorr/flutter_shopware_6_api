@@ -57,7 +57,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    final _setLogin = ref.read(authProvider.notifier).setAuth;
+    /* final _setLogin = ref.read(authProvider.notifier).setAuth; */
 
     void _saveItemStep3() async {
       if (_formKey3.currentState!.validate()) {
@@ -75,8 +75,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           billingAddress: _billingAdress,
         );
 
-        final cartInfo =
-            await ShopwareApiHelper().createCart(contextToken: contextKey!);
+        await ShopwareApiHelper().createCart(contextToken: contextKey!);
 
         /* widget.changeLogin(contextKey); */
         ref.watch(authProvider.notifier).setAuth(contextKey);

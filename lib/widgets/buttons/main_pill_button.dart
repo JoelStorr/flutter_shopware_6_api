@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class MainPillButton extends StatelessWidget {
-  MainPillButton({
+  const MainPillButton({
     super.key,
     this.activeElement = 'left',
     required this.textLeft,
     required this.textRight,
     required this.navigateTo,
   });
-  String activeElement;
-  String textLeft;
-  String textRight;
-  Widget navigateTo;
+  final String activeElement;
+  final String textLeft;
+  final String textRight;
+  final Widget navigateTo;
 
   @override
   Widget build(BuildContext context) {
