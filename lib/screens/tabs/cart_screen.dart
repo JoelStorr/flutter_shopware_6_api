@@ -53,15 +53,14 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 child: Stack(
                   alignment: AlignmentDirectional.topCenter,
                   children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 80,
-                        ),
-                        FutureBuilder(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          FutureBuilder(
                             future: ShopwareApiHelper()
                                 .createCart(contextToken: contextToken),
                             builder: (context, snapshot) {
@@ -76,22 +75,39 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   child: Text('No Items in Cart'),
                                 );
                               } else {
-                                return Column(
-                                  children: [
-                                    ListView.builder(
+                                return Container(
+                                  height: MediaQuery.of(context).size.height,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListView.builder(
                                         scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
                                         itemCount:
                                             snapshot.data!['lineItems'].length,
                                         itemBuilder: (ctx, index) {
                                           return const Placeholder();
-                                        })
-                                  ],
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 200,
+                                      ),
+                                      const SizedBox(
+                                        height: 100,
+                                        child: Text('Demo'),
+                                      )
+                                    ],
+                                  ),
                                 );
                               }
-                            })
-                      ],
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         const SizedBox(
                           height: 20,
