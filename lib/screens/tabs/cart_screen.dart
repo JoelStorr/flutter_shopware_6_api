@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
@@ -53,58 +55,58 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 child: Stack(
                   alignment: AlignmentDirectional.topCenter,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            height: 80,
-                          ),
-                          FutureBuilder(
-                            future: ShopwareApiHelper()
-                                .createCart(contextToken: contextToken),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator(
-                                        color:
-                                            Color.fromARGB(255, 241, 105, 33)));
-                              } else if (snapshot.data == null) {
-                                return const Center(
-                                  child: Text('No Items in Cart'),
-                                );
-                              } else {
-                                return Container(
-                                  height: MediaQuery.of(context).size.height,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            snapshot.data!['lineItems'].length,
-                                        itemBuilder: (ctx, index) {
-                                          return const Placeholder();
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 200,
-                                      ),
-                                      const SizedBox(
-                                        height: 100,
-                                        child: Text('Demo'),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      ),
+                    FutureBuilder(
+                      future: ShopwareApiHelper()
+                          .createCart(contextToken: contextToken),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 241, 105, 33)));
+                        } else if (snapshot.data == null) {
+                          return const Center(
+                            child: Text('No Items in Cart'),
+                          );
+                        } else {
+                          return SizedBox(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height,
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data!['lineItems'].length,
+                                  itemBuilder: (ctx, index) {
+                                    if (index ==
+                                        snapshot.data!['lineItems'].length -
+                                            1) {
+                                      return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Placeholder(),
+                                            SizedBox(
+                                              height: 200,
+                                            )
+                                          ]);
+                                    }
+
+                                    return const Placeholder();
+                                  },
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 200,
+                                  color: Colors.blue,
+                                  child: Column(children: [Text('Demo Text')]),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.min,
