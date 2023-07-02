@@ -83,7 +83,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                     if (index ==
                                         snapshot.data!['lineItems'].length -
                                             1) {
-                                      return Column(
+                                      return const Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Placeholder(),
@@ -100,7 +100,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   width: double.infinity,
                                   height: 200,
                                   color: Colors.blue,
-                                  child: Column(children: [Text('Demo Text')]),
+                                  child: const Column(
+                                      children: [Text('Demo Text')]),
                                 )
                               ],
                             ),
