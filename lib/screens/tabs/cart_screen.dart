@@ -6,6 +6,7 @@ import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
+import 'package:flutter_shopware_6_api/widgets/cards/cart_item_card.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key, required this.navigatorKey});
@@ -81,13 +82,28 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   itemCount: snapshot.data!['lineItems'].length,
                                   itemBuilder: (ctx, index) {
                                     if (index == 0) {
-                                      return const Column(
+                                      return Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 80,
                                             ),
-                                            Placeholder(),
+                                            CartItemCard(
+                                                id: snapshot.data!['lineItems']
+                                                    [index]['id'],
+                                                name: snapshot.data!['lineItems']
+                                                    [index]['label'],
+                                                imageUrl: snapshot.data!['lineItems']
+                                                    [index]['cover']['url'],
+                                                weight: snapshot.data!['lineItems']
+                                                        [index]['deliveryInformation']
+                                                    ['weight'],
+                                                price: snapshot.data!['lineItems'][index]
+                                                    ['price']['unitPrice'],
+                                                avilableStock: snapshot
+                                                        .data!['lineItems'][index]
+                                                    ['deliveryInformation']['stock'],
+                                                amount: snapshot.data!['lineItems'][index]['quantity'])
                                           ]);
                                     }
 
