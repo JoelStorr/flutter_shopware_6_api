@@ -80,6 +80,17 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data!['lineItems'].length,
                                   itemBuilder: (ctx, index) {
+                                    if (index == 0) {
+                                      return const Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                              height: 80,
+                                            ),
+                                            Placeholder(),
+                                          ]);
+                                    }
+
                                     if (index ==
                                         snapshot.data!['lineItems'].length -
                                             1) {
