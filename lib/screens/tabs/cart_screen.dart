@@ -71,7 +71,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           );
                         } else {
                           return SizedBox(
-                            width: double.infinity,
+                            /* width: double.infinity, */
                             height: MediaQuery.of(context).size.height,
                             child: Stack(
                               alignment: Alignment.bottomCenter,
@@ -83,7 +83,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   itemBuilder: (ctx, index) {
                                     if (index == 0) {
                                       return Column(
-                                          mainAxisSize: MainAxisSize.min,
+                                          /* mainAxisSize: MainAxisSize.min, */
                                           children: [
                                             const SizedBox(
                                               height: 80,
@@ -110,17 +110,60 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                     if (index ==
                                         snapshot.data!['lineItems'].length -
                                             1) {
-                                      return const Column(
-                                          mainAxisSize: MainAxisSize.min,
+                                      return Column(
+
+                                          /* mainAxisSize: MainAxisSize.min, */
                                           children: [
-                                            Placeholder(),
-                                            SizedBox(
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            CartItemCard(
+                                                id: snapshot.data!['lineItems']
+                                                    [index]['id'],
+                                                name: snapshot.data!['lineItems']
+                                                    [index]['label'],
+                                                imageUrl: snapshot.data!['lineItems']
+                                                    [index]['cover']['url'],
+                                                weight: snapshot.data!['lineItems']
+                                                        [index]['deliveryInformation']
+                                                    ['weight'],
+                                                price: snapshot.data!['lineItems'][index]
+                                                    ['price']['unitPrice'],
+                                                avilableStock: snapshot
+                                                        .data!['lineItems'][index]
+                                                    ['deliveryInformation']['stock'],
+                                                amount: snapshot.data!['lineItems'][index]['quantity']),
+                                            const SizedBox(
                                               height: 200,
                                             )
                                           ]);
                                     }
 
-                                    return const Placeholder();
+                                    return Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        CartItemCard(
+                                          id: snapshot.data!['lineItems'][index]
+                                              ['id'],
+                                          name: snapshot.data!['lineItems']
+                                              [index]['label'],
+                                          imageUrl: snapshot.data!['lineItems']
+                                              [index]['cover']['url'],
+                                          weight: snapshot.data!['lineItems']
+                                                  [index]['deliveryInformation']
+                                              ['weight'],
+                                          price: snapshot.data!['lineItems']
+                                              [index]['price']['unitPrice'],
+                                          avilableStock: snapshot
+                                                  .data!['lineItems'][index]
+                                              ['deliveryInformation']['stock'],
+                                          amount: snapshot.data!['lineItems']
+                                              [index]['quantity'],
+                                        ),
+                                      ],
+                                    );
                                   },
                                 ),
                                 Container(
