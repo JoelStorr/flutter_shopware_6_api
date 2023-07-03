@@ -29,7 +29,6 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
       height: 130,
       padding: const EdgeInsets.only(
         top: 10,
@@ -235,9 +234,9 @@ class CartItemCard extends StatelessWidget {
                     return const Color.fromARGB(255, 244, 130, 70);
                   }),
                 ),
-                child: const Text(
-                  'More Detailes',
-                  style: TextStyle(
+                child: Text(
+                  '$amount',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     shadows: [
