@@ -82,12 +82,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                       future: ShopwareApiHelper()
                           .getProduct(productID: widget.productId),
                       builder: (ctx, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 241, 105, 33)));
-                        } else if (snapshot.data == null) {
+                        if (snapshot.data == null) {
                           return const Center(
                             child: Text('No Products Found'),
                           );
@@ -245,23 +240,21 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    OrderButton(
-                                      productId: snapshot.data!['id'],
-                                      orderNumber: orderNumber,
-                                      increasOrder: increasOrder,
-                                      decreaseOrder: decreaseOrder,
-                                      addItemsToCart: addItemsToCart,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  OrderButton(
+                                    productId: snapshot.data!['id'],
+                                    orderNumber: orderNumber,
+                                    increasOrder: increasOrder,
+                                    decreaseOrder: decreaseOrder,
+                                    addItemsToCart: addItemsToCart,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  )
+                                ],
                               )
                             ],
                           );

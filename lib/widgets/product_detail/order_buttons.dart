@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OrderButton extends StatelessWidget {
+class OrderButton extends StatefulWidget {
   const OrderButton({
     super.key,
     required this.productId,
@@ -17,6 +17,11 @@ class OrderButton extends StatelessWidget {
   final Function({required String productId, required int quantity})
       addItemsToCart;
 
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -58,7 +63,7 @@ class OrderButton extends StatelessWidget {
                                                   .resolveWith<Size>((states) =>
                                                       const Size(30, 30)), */
                       ),
-                  onPressed: () => decreaseOrder(),
+                  onPressed: () => widget.decreaseOrder(),
                   icon: const Icon(
                     Icons.remove,
                     color: Colors.white,
@@ -69,7 +74,7 @@ class OrderButton extends StatelessWidget {
                   width: 50,
                   alignment: Alignment.center,
                   child: Text(
-                    'x$orderNumber',
+                    'x${widget.orderNumber}',
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -95,7 +100,7 @@ class OrderButton extends StatelessWidget {
                                   bottomRight: Radius.circular(5.0)));
                         }),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-                    onPressed: () => increasOrder(),
+                    onPressed: () => widget.increasOrder(),
                     icon: const Icon(
                       Icons.add,
                       color: Colors.white,
@@ -104,8 +109,8 @@ class OrderButton extends StatelessWidget {
         ),
         /* NOTE: Order Button */
         TextButton(
-          onPressed: () =>
-              addItemsToCart(productId: productId, quantity: orderNumber),
+          onPressed: () => widget.addItemsToCart(
+              productId: widget.productId, quantity: widget.orderNumber),
           style: ButtonStyle(
             padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
                 (states) => const EdgeInsets.only(left: 40, right: 40)),
