@@ -7,6 +7,7 @@ import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/cart_item_card.dart';
+import 'package:flutter_shopware_6_api/widgets/helper/separator.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key, required this.navigatorKey});
@@ -134,7 +135,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                     ['deliveryInformation']['stock'],
                                                 amount: snapshot.data!['lineItems'][index]['quantity']),
                                             const SizedBox(
-                                              height: 200,
+                                              height: 230,
                                             )
                                           ]);
                                     }
@@ -167,40 +168,121 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                   },
                                 ),
                                 Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border(
+                                        top: BorderSide(
+                                          color:
+                                              Color.fromARGB(153, 81, 79, 79),
+                                          width: 2.5,
+                                        ),
+                                      )),
+                                  padding: const EdgeInsets.only(
+                                      top: 20, bottom: 20, left: 40, right: 40),
                                   width: double.infinity,
-                                  height: 200,
-                                  color: Colors.white,
+                                  height: 230,
                                   child: Column(children: [
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text('Sub total:'),
+                                        const Text('Sub total:',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    153, 81, 79, 79),
+                                                fontWeight: FontWeight.bold)),
                                         Text(
-                                            '${snapshot.data!['price']['netPrice']}')
+                                          '${snapshot.data!['price']['netPrice']} €',
+                                          style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                  153, 81, 79, 79),
+                                              fontWeight: FontWeight.bold),
+                                        )
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        const Text('Shipping:'),
-                                        Text(
-                                            '${snapshot.data!['deliveries'][0]['shippingCosts']['totalPrice']}')
-                                      ],
+                                    const MySeparator(
+                                      color: Color.fromARGB(153, 81, 79, 79),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
+                                        const Text('Shipping:',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    153, 81, 79, 79),
+                                                fontWeight: FontWeight.bold)),
                                         Text(
-                                            'Tax(${snapshot.data!['price']['calculatedTaxes'][0]['taxRate']}%):'),
-                                        Text(
-                                            '${snapshot.data!['price']['calculatedTaxes'][0]['price']}')
+                                            '${snapshot.data!['deliveries'][0]['shippingCosts']['totalPrice']} €',
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    153, 81, 79, 79),
+                                                fontWeight: FontWeight.bold))
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        const Text('Total:'),
-                                        Text(
-                                            '${snapshot.data!['price']['totalPrice']}')
-                                      ],
+                                    const MySeparator(
+                                      color: Color.fromARGB(153, 81, 79, 79),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                            'Tax(${snapshot.data!['price']['calculatedTaxes'][0]['taxRate']}%):',
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    153, 81, 79, 79),
+                                                fontWeight: FontWeight.bold)),
+                                        Text(
+                                            '${snapshot.data!['price']['calculatedTaxes'][0]['tax']} €',
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    153, 81, 79, 79),
+                                                fontWeight: FontWeight.bold))
+                                      ],
+                                    ),
+                                    const MySeparator(
+                                      color: Color.fromARGB(153, 81, 79, 79),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('Total:',
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 105, 33),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                            )),
+                                        Text(
+                                            '${snapshot.data!['price']['totalPrice']} €',
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 241, 105, 33),
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold))
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         TextButton(
                                             style: ButtonStyle(
@@ -218,19 +300,24 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                             ),
                                             onPressed: () {},
                                             child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
                                                   'Order now',
                                                   style: TextStyle(
-                                                      color: Colors.white,),
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Icon(
-                                                    Icons
-                                                        .local_shipping_outlined,
-                                                    color: Colors.white,),
+                                                  Icons.local_shipping_outlined,
+                                                  color: Colors.white,
+                                                ),
                                               ],
                                             ))
                                       ],
