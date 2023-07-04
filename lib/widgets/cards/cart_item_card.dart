@@ -202,7 +202,7 @@ class CartItemCard extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(
+                  /* Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
                         return ProductScreen(
@@ -210,7 +210,7 @@ class CartItemCard extends StatelessWidget {
                         );
                       },
                     ),
-                  );
+                  ); */
                 },
                 style: ButtonStyle(
                   /*  padding:
