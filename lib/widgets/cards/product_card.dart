@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
+import 'package:flutter_shopware_6_api/widgets/helper/rating.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -80,19 +81,8 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       //TODO: Make ratin Widget
-                      Text(
-                        ratingAverage == null
-                            ? 'Not yet rated'
-                            : '$ratingAverage',
-                        style: const TextStyle(
-                          color: Color.fromARGB(
-                            204,
-                            40,
-                            40,
-                            40,
-                          ),
-                        ),
-                      ),
+
+                      Rating(rating: ratingAverage.toString()),
                     ],
                   ),
                   const SizedBox(

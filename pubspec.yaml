@@ -70,6 +70,8 @@ flutter:
   assets:
     - assets/images/taste_your_progress_banner_orange.png
     - assets/images/logo/Logo.png
+    - assets/images/rating_beans/full_bean.png
+    - assets/images/rating_beans/empty_bean.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
