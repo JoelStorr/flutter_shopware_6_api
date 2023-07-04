@@ -169,9 +169,73 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 Container(
                                   width: double.infinity,
                                   height: 200,
-                                  color: Colors.blue,
-                                  child: const Column(
-                                      children: [Text('Demo Text')]),
+                                  color: Colors.white,
+                                  child: Column(children: [
+                                    Row(
+                                      children: [
+                                        const Text('Sub total:'),
+                                        Text(
+                                            '${snapshot.data!['price']['netPrice']}')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text('Shipping:'),
+                                        Text(
+                                            '${snapshot.data!['deliveries'][0]['shippingCosts']['totalPrice']}')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                            'Tax(${snapshot.data!['price']['calculatedTaxes'][0]['taxRate']}%):'),
+                                        Text(
+                                            '${snapshot.data!['price']['calculatedTaxes'][0]['price']}')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text('Total:'),
+                                        Text(
+                                            '${snapshot.data!['price']['totalPrice']}')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        TextButton(
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty
+                                                      .resolveWith<Color>(
+                                                          (states) {
+                                                if (states.contains(
+                                                    MaterialState.disabled)) {
+                                                  return Colors.transparent;
+                                                }
+                                                return const Color.fromARGB(
+                                                    255, 241, 105, 33);
+                                              }),
+                                            ),
+                                            onPressed: () {},
+                                            child: const Row(
+                                              children: [
+                                                Text(
+                                                  'Order now',
+                                                  style: TextStyle(
+                                                      color: Colors.white,),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Icon(
+                                                    Icons
+                                                        .local_shipping_outlined,
+                                                    color: Colors.white,),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                  ]),
                                 )
                               ],
                             ),
