@@ -22,6 +22,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    /* NOTE: Handle Login Api request */
+
     void _saveItem() async {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
@@ -35,6 +37,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       }
     }
 
+    /* NOTE: Login Form */
     return Container(
       padding: const EdgeInsets.all(25),
       child: Form(

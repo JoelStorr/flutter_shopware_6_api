@@ -32,7 +32,7 @@ class MyDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'FlutWare',
+                  'DevCoffee',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 30,
@@ -54,22 +54,24 @@ class MyDrawer extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-                future: myCategories,
-                builder: (ctx, snapshot) {
-                  if (snapshot.data == null) {
-                    return const Text('Waiting for Data');
-                  }
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (ctx, index) {
-                        return ListTile(
-                          title: Text(snapshot.data![index]['name'].toString()),
-                          onTap: () {},
-                        );
-                      },);
-                },),
+              future: myCategories,
+              builder: (ctx, snapshot) {
+                if (snapshot.data == null) {
+                  return const Text('Waiting for Data');
+                }
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (ctx, index) {
+                    return ListTile(
+                      title: Text(snapshot.data![index]['name'].toString()),
+                      onTap: () {},
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),

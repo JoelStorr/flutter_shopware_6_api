@@ -16,14 +16,14 @@ class RegisterForm extends ConsumerStatefulWidget {
 }
 
 class _RegisterFormState extends ConsumerState<RegisterForm> {
-  var _enteredEmail;
-  var _enteredPassword;
-  var _confirmPassword;
+  String? _enteredEmail;
+  String? _enteredPassword;
+  String? _confirmPassword;
 
-  var _salutationId;
-  var _firstName;
-  var _lastName;
-  var _storefrontURL;
+  String? _salutationId;
+  String? _firstName;
+  String? _lastName;
+  String? _storefrontURL;
   final _billingAdress = {
     'street': '',
     'zipcode': '',
@@ -31,6 +31,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     'countryId': null,
   };
 
+/* NOTE: Handle Registration Steps */
   int _registerStage = 0;
 
   final _formKey1 = GlobalKey<FormState>();
@@ -59,7 +60,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   Widget build(BuildContext context) {
     /* final _setLogin = ref.read(authProvider.notifier).setAuth; */
 
-    void _saveItemStep3() async {
+    void saveItemStep3() async {
       if (_formKey3.currentState!.validate()) {
         _formKey3.currentState!.save();
         setState(() {
@@ -67,11 +68,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
         });
 
         final contextKey = await ShopwareApiHelper().registerCustomer(
-          salutationId: _salutationId,
-          firstName: _firstName,
-          lastName: _lastName,
-          email: _enteredEmail,
-          password: _enteredPassword,
+          salutationId: _salutationId!,
+          firstName: _firstName!,
+          lastName: _lastName!,
+          email: _enteredEmail!,
+          password: _enteredPassword!,
           billingAddress: _billingAdress,
         );
 
@@ -87,6 +88,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       child: FutureBuilder(
         future: ShopwareApiHelper().getRegistrationInfo(),
         builder: (context, snapshot) {
+          /* NOTE: Loading and Exceptions */
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: CircularProgressIndicator(
@@ -527,7 +529,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           width: 20,
                         ),
                         OutlinedButton(
-                          onPressed: () => _saveItemStep3(),
+                          onPressed: () => saveItemStep3(),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(
                               color: Color.fromARGB(255, 244, 130, 70),
