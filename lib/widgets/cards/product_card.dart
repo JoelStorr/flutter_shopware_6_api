@@ -80,8 +80,6 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      //TODO: Make ratin Widget
-
                       Rating(rating: ratingAverage.toString()),
                     ],
                   ),
