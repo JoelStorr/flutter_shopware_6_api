@@ -267,11 +267,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     DropdownButtonFormField(
                       value: _salutationId,
                       items: snapshot.data!['salutations']
-                          .map<DropdownMenuItem<Object>>(
-                            (ele) => DropdownMenuItem(
-                              value: ele['id'],
+                          .map<DropdownMenuItem<String>>(
+                            (ele) => DropdownMenuItem<String>(
+                              value: ele['id']!,
                               child: Text(
-                                ele['displayName'],
+                                ele['displayName']!,
                               ),
                             ),
                           )
