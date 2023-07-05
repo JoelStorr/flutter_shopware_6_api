@@ -64,7 +64,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           return const Center(
                               child: CircularProgressIndicator(
                                   color: Color.fromARGB(255, 241, 105, 33)));
-                        } else if (snapshot.data == null) {
+                        } else if (snapshot.data == null || snapshot.data!['lineItems'].length == 0 ) {
                           return const Center(
                             child: Text('No Items in Cart'),
                           );
