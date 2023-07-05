@@ -75,7 +75,7 @@ class CategoryCard extends StatelessWidget {
                   }),
                 ),
                 child: const Text(
-                  'Get a Tatse',
+                  'Get a Taste',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

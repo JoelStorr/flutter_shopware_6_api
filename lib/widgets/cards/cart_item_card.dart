@@ -109,7 +109,7 @@ class CartItemCard extends StatelessWidget {
                       ),
                       avilableStock > 0
                           ? const Text(
-                              'Avalible',
+                              'Available',
                               style: TextStyle(
                                 color: Color.fromARGB(
                                   204,

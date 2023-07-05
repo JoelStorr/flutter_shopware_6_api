@@ -111,7 +111,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       available
                           ? const Text(
-                              'Avalible',
+                              'Available',
                               style: TextStyle(
                                 color: Color.fromARGB(
                                   204,
@@ -237,7 +237,7 @@ class ProductCard extends StatelessWidget {
                   }),
                 ),
                 child: const Text(
-                  'More Detailes',
+                  'More Details',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
