@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/cards/product_card.dart';
 
@@ -28,7 +29,15 @@ class CategoryScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SearchScreen();
+                  },
+                ),
+              );
+            },
             icon: const Icon(
               Icons.search,
             ),
@@ -58,6 +67,7 @@ class CategoryScreen extends StatelessWidget {
                           child: Text('No Products Found'),
                         );
                       } else {
+                        /* NOTE: Display indevidual Product Cards */
                         return ListView.separated(
                           scrollDirection: Axis.vertical,
                           physics: const ClampingScrollPhysics(),
@@ -102,6 +112,7 @@ class CategoryScreen extends StatelessWidget {
               ],
             ),
           ),
+          /* NOTE: Main Pill Button */
           Column(
             children: [
               const SizedBox(

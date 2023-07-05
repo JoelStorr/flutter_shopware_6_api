@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 import 'package:flutter_shopware_6_api/widgets/product_detail/order_buttons.dart';
@@ -17,6 +18,7 @@ class ProductScreen extends ConsumerStatefulWidget {
 class _ProductScreenState extends ConsumerState<ProductScreen> {
   int orderNumber = 1;
 
+  /* NOTE: Handle Order Amounts */
   increasOrder() {
     setState(() {
       orderNumber++;
@@ -33,6 +35,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
     }
   }
 
+  /* NOTE: Submites Order to API Helper */
   addItemsToCart({required String productId, required int quantity}) async {
     final contextToken = ref.read(authProvider);
 
@@ -57,7 +60,15 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SearchScreen();
+                  },
+                ),
+              );
+            },
             icon: const Icon(
               Icons.search,
             ),
@@ -253,7 +264,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                                   ),
                                   const SizedBox(
                                     height: 20,
-                                  )
+                                  ),
                                 ],
                               )
                             ],
@@ -263,6 +274,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                 ),
               ],
             ),
+            /* NOTE: Main Pill Button */
             Column(
               children: [
                 const SizedBox(

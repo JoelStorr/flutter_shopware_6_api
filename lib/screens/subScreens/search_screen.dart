@@ -18,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchTextController = TextEditingController();
 
+  /* NOTE: Handle Search Logic and Api Requests */
   Timer? timer;
   Future<List<Map<dynamic, dynamic>>>? currentSearchProducts;
 
@@ -46,7 +47,15 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SearchScreen();
+                  },
+                ),
+              );
+            },
             icon: const Icon(
               Icons.search,
             ),
@@ -73,6 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               child: Text('No Products Found'),
                             );
                           } else {
+                            /* NOTE: Display Cards for Found Products */
                             return ListView.separated(
                               scrollDirection: Axis.vertical,
                               physics: const ClampingScrollPhysics(),
@@ -128,20 +138,21 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 20,
               ),
-              MainPillButton(
+              /* NOTE: Main Search Button */
+              const MainPillButton(
                 activeElement: 'right',
                 textLeft: 'Home',
                 textRight: 'Search',
-                navigateTo: const SearchScreen(),
+                navigateTo: SearchScreen(),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Container(
+              /* NOTE: Search Box */
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: TextField(
                   controller: _searchTextController,
-                  maxLength: 100,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     label: Text('Search'),

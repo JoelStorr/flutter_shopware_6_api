@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shopware_6_api/helpers/api_helpers.dart';
+import 'package:flutter_shopware_6_api/screens/subScreens/search_screen.dart';
 import 'package:flutter_shopware_6_api/store/auth_provider.dart';
 import 'package:flutter_shopware_6_api/widgets/buttons/main_pill_button.dart';
 
@@ -25,7 +26,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SearchScreen();
+                  },
+                ),
+              );
+            },
             icon: const Icon(
               Icons.search,
             ),
@@ -44,7 +53,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   height: 100,
                 ),
                 FutureBuilder(
-                    //TODO: Make Profile Request
+                    /* NOTE: Display Profile Informations */
                     future: ShopwareApiHelper()
                         .checkCustomer(contextToken: contextToken),
                     builder: (ctx, snapshot) {
@@ -339,16 +348,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ],
             ),
           ),
-          Column(
+          /* NOTE: Main Pill Button */
+          const Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               MainPillButton(
                 activeElement: 'right',
                 textLeft: 'More',
                 textRight: 'Profile',
-                navigateTo: const ProfileScreen(),
+                navigateTo: ProfileScreen(),
               ),
             ],
           ),
