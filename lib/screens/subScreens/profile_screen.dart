@@ -74,7 +74,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Hello,${snapshot.data!['firstName']}',
+                              'Hello ${snapshot.data!['firstName']}',
                               style: const TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
+import 'package:flutter_shopware_6_api/widgets/helper/rating.dart';
 
 //Code from Stack Overflow
 extension HexColor on Color {
@@ -73,7 +74,7 @@ class NewProductCard extends StatelessWidget {
                         color: Color.fromARGB(200, 40, 38, 38),
                       ),
                     ),
-                    const Text('rating placeholder'),
+                    const Rating(rating: '0.0'),
                     const SizedBox(
                       height: 20,
                     ),
