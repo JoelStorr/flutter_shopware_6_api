@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /* NOTE: Api */
     final mainNavigation = ShopwareApiHelper().getMainNavigation();
     final latestProduct = ShopwareApiHelper().getProductsForCategory('Latest');
 
@@ -74,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 80,
                         ),
+                        /* NOTE: Latest Product Row */
                         FutureBuilder(
                           future: latestProduct,
                           builder: (ctx, snapshot) {
@@ -158,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 25,
                         ),
                         /* FutureBuilder(builder: (){}), */
-
+                        /* NOTE: Devider Image */
                         Container(
                           width: MediaQuery.of(context).size.width * 0.9,
                           height: 110,
@@ -178,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fit: BoxFit.cover),
                           ),
                         ),
+                        /* NOTE: Dispalys Product Categories */
                         FutureBuilder(
                           future: mainNavigation,
                           builder: (ctx, snapshot) {
@@ -232,16 +235,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Column(
+                  /* NOTE: Primary Pill Button */
+                  const Column(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         height: 20,
                       ),
                       MainPillButton(
                         activeElement: 'left',
                         textLeft: 'Home',
                         textRight: 'Last Orders',
-                        navigateTo: const LastOrdersScreen(),
+                        navigateTo: LastOrdersScreen(),
                       ),
                     ],
                   ),

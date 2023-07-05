@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/* NOTE: Handle Global Authentication State */
+
 class AuthNotifire extends StateNotifier<String> {
   AuthNotifire() : super('');
 

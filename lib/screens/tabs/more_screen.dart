@@ -71,16 +71,17 @@ class _MoreScreenState extends State<MoreScreen> {
                       ],
                     ),
                   ),
-                  Column(
+                  /* NOTE: Main Pill Navigation */
+                  const Column(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         height: 20,
                       ),
                       MainPillButton(
                         activeElement: 'left',
                         textLeft: 'More',
                         textRight: 'Profile',
-                        navigateTo: const ProfileScreen(),
+                        navigateTo: ProfileScreen(),
                       ),
                     ],
                   ),

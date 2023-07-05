@@ -30,6 +30,7 @@ class _TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        /* NOTE: Handles the Navigation between Indevidual Tabs */
         child: WillPopScope(
           onWillPop: () async {
             return !await Navigator.maybePop(

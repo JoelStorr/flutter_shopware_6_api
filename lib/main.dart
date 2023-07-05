@@ -38,6 +38,7 @@ class App extends ConsumerWidget {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
+        /* NOTE: Hnadles display logic */
         home: isLoggedIn.isEmpty ? AuthScreen() : const TabScreen());
   }
 }

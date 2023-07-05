@@ -75,12 +75,14 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
+                                /* NOTE: Display Products in Card */
                                 ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
                                   itemCount: snapshot.data!['lineItems'].length,
                                   itemBuilder: (ctx, index) {
                                     if (index == 0) {
+                                      /* NOTE: First Product Card */
                                       return Column(
                                           /* mainAxisSize: MainAxisSize.min, */
                                           children: [
@@ -109,6 +111,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                     if (index ==
                                         snapshot.data!['lineItems'].length -
                                             1) {
+                                      /* NOTE: Last Card */
                                       return Column(
 
                                           /* mainAxisSize: MainAxisSize.min, */
@@ -137,7 +140,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                             )
                                           ]);
                                     }
-
+                                    /* NOTE: Product Card */
                                     return Column(
                                       children: [
                                         const SizedBox(
@@ -165,6 +168,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                     );
                                   },
                                 ),
+
+                                /* NOTE: Order Information */
                                 Container(
                                   decoration: const BoxDecoration(
                                       color: Colors.white,
@@ -328,6 +333,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         }
                       },
                     ),
+                    /* NOTE: Main Pill Button */
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

@@ -3,7 +3,7 @@ import 'package:flutter_shopware_6_api/widgets/auth/login.dart';
 import 'package:flutter_shopware_6_api/widgets/auth/register.dart';
 
 class AuthScreen extends StatefulWidget {
-  AuthScreen({
+  const AuthScreen({
     super.key,
     /* required this.changeLogin */
   });
@@ -32,31 +32,36 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            /* NOTE: Handle Login or Registration Display */
             Text(
               isLogin ? 'Login' : 'Register',
               style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 77, 75, 76)),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 77, 75, 76),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
+            /* NOTE: Display Login or Regstration Form */
             isLogin ? LoginForm() : const RegisterForm(),
             const SizedBox(
               height: 20,
             ),
             TextButton(
-                onPressed: () {
-                  setState(() {
-                    isLogin = !isLogin;
-                  });
-                },
-                child: Text(
-                  isLogin ? 'Register' : 'Login',
-                  style:
-                      const TextStyle(color: Color.fromARGB(200, 244, 130, 70)),
-                ))
+              onPressed: () {
+                setState(() {
+                  isLogin = !isLogin;
+                });
+              },
+              child: Text(
+                isLogin ? 'Register' : 'Login',
+                style: const TextStyle(
+                  color: Color.fromARGB(200, 244, 130, 70),
+                ),
+              ),
+            ),
           ],
         ),
       ),
