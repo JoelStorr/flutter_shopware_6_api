@@ -153,7 +153,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                                             Text(
                                               snapshot.data![
                                                       'productReviews'] ??
-                                                  'Not yet Rated',
+                                                  'Not yet rated',
                                               style: const TextStyle(
                                                 color: Color.fromARGB(
                                                   204,
@@ -202,7 +202,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                                           ),
                                         ),
                                         Text(
-                                          '${snapshot.data!['weight'] * 1000} g',
+                                          '${(snapshot.data!['weight'] * 1000).round()} g',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20,
