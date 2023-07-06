@@ -1,8 +1,5 @@
-import 'dart:ffi';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_shopware_6_api/screens/subScreens/product_screen.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
