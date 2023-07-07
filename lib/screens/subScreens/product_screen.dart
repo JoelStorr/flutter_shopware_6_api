@@ -45,8 +45,10 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
       "quantity": quantity,
     };
 
-    await ShopwareApiHelper()
-        .addToCart(contextToken: contextToken, item: cartItem);
+    await ShopwareApiHelper().addToCart(
+      contextToken: contextToken,
+      item: cartItem,
+    );
   }
 
   @override
@@ -72,7 +74,9 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
             icon: const Icon(
               Icons.search,
             ),
-            padding: const EdgeInsets.only(right: 30.0),
+            padding: const EdgeInsets.only(
+              right: 30.0,
+            ),
           ),
         ],
       ),
@@ -90,187 +94,187 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                 ),
                 Expanded(
                   child: FutureBuilder(
-                      future: ShopwareApiHelper()
-                          .getProduct(productID: widget.productId),
-                      builder: (ctx, snapshot) {
-                        if (snapshot.data == null) {
-                          return const Center(
-                            child: Text('No Products Found'),
-                          );
-                        } else {
-                          return Stack(
-                            children: [
-                              SingleChildScrollView(
-                                primary: true,
-                                scrollDirection: Axis.vertical,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    /* NOTE: Main Image */
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.network(
-                                          snapshot.data!['cover']['media']
-                                              ['url'],
-                                          height: 160,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    /* NOTE: Name, Rating and Price */
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              snapshot.data!['translated']
-                                                  ['name'],
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 30,
-                                                  color: Color.fromARGB(
-                                                    204,
-                                                    40,
-                                                    40,
-                                                    40,
-                                                  )),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              snapshot.data![
-                                                      'productReviews'] ??
-                                                  'Not yet rated',
-                                              style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                  204,
-                                                  40,
-                                                  40,
-                                                  40,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          "${snapshot.data!['calculatedPrice']['unitPrice']} €",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: Color.fromARGB(
-                                              204,
-                                              40,
-                                              40,
-                                              40,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    /* NOTE: Product Size */
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Size',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: Color.fromARGB(
-                                              204,
-                                              40,
-                                              40,
-                                              40,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          '${(snapshot.data!['weight'] * 1000).round()} g',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Color.fromARGB(
-                                              204,
-                                              40,
-                                              40,
-                                              40,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 50,
-                                    ),
-                                    /* NOTE: Product Description */
-                                    const Text(
-                                      'Description',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Color.fromARGB(
-                                          204,
-                                          40,
-                                          40,
-                                          40,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      snapshot.data!['translated']
-                                          ['description'],
-                                      style: const TextStyle(
-                                        color: Color.fromARGB(
-                                          204,
-                                          40,
-                                          40,
-                                          40,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
+                    future: ShopwareApiHelper().getProduct(
+                      productID: widget.productId,
+                    ),
+                    builder: (ctx, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Center(
+                          child: Text(
+                            'No Products Found',
+                          ),
+                        );
+                      } else {
+                        return Stack(
+                          children: [
+                            SingleChildScrollView(
+                              primary: true,
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  OrderButton(
-                                    productId: snapshot.data!['id'],
-                                    orderNumber: orderNumber,
-                                    increasOrder: increasOrder,
-                                    decreaseOrder: decreaseOrder,
-                                    addItemsToCart: addItemsToCart,
+                                  /* NOTE: Main Image */
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        snapshot.data!['cover']['media']['url'],
+                                        height: 160,
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 20,
                                   ),
+                                  /* NOTE: Name, Rating and Price */
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            snapshot.data!['translated']
+                                                ['name'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 30,
+                                              color: Color.fromARGB(
+                                                204,
+                                                40,
+                                                40,
+                                                40,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            snapshot.data!['productReviews'] ??
+                                                'Not yet rated',
+                                            style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                204,
+                                                40,
+                                                40,
+                                                40,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "${snapshot.data!['calculatedPrice']['unitPrice']} €",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          color: Color.fromARGB(
+                                            204,
+                                            40,
+                                            40,
+                                            40,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 40,
+                                  ),
+                                  /* NOTE: Product Size */
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Size',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          color: Color.fromARGB(
+                                            204,
+                                            40,
+                                            40,
+                                            40,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '${(snapshot.data!['weight'] * 1000).round()} g',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Color.fromARGB(
+                                            204,
+                                            40,
+                                            40,
+                                            40,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  /* NOTE: Product Description */
+                                  const Text(
+                                    'Description',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Color.fromARGB(
+                                        204,
+                                        40,
+                                        40,
+                                        40,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    snapshot.data!['translated']['description'],
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(
+                                        204,
+                                        40,
+                                        40,
+                                        40,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 40,
+                                  )
                                 ],
-                              )
-                            ],
-                          );
-                        }
-                      }),
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                OrderButton(
+                                  productId: snapshot.data!['id'],
+                                  orderNumber: orderNumber,
+                                  increasOrder: increasOrder,
+                                  decreaseOrder: decreaseOrder,
+                                  addItemsToCart: addItemsToCart,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            )
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
